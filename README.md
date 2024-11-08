@@ -20,7 +20,6 @@ Aqui está um exemplo de `README.md` para o seu portfólio, incluindo uma visão
 1. **Clone o repositório:**
 2. **Instale as dependências:**
    ```bash
-   cd seuportifolio
    npm install
    ```
 3. **Inicie o servidor de desenvolvimento:**
