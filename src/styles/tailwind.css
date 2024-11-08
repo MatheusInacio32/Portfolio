@@ -1,13 +1,13 @@
-/* @import "tailwindcss/base";
+@import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+@import "tailwindcss/utilities";
 
-
-/* Não Apagar (usar para Deploy) */
+/* 
+Não Apagar (usar para Deploy)
 @tailwind base;
 @tailwind components; 
-@tailwind utilities;   
-
+@tailwind utilities;    
+*/
 
 body {
   margin: 0;
