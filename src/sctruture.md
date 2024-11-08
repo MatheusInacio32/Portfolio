@@ -1,4 +1,4 @@
-Estrutura do Projeto
+Estrutura
 
 ### /src  
 - Pasta principal com o código-fonte do projeto. Contém todos os arquivos JavaScript e componentes.
