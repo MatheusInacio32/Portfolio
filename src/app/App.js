@@ -1,6 +1,6 @@
 // src/app/App.js
+import '../styles/tailwind.css';
 import React from 'react';
-import '../styles/App.css';
 import Header1 from '../components/Header1';
 import Home from '../components/Home';
 import Sobre from '../components/Sobre';
