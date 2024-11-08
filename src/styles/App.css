@@ -8,10 +8,4 @@ body {
   padding: 0;
 }
 
-.f1 {
-  background-color: linear-gradient(to bottom, #0a0a0a, rgb(17 24 39))!important; /* Dark black to gray */
-}
-.f2 {
-  background-color: linear-gradient(to bottom, rgb(17 24 39), #0a0a0a)!important; /* Ao inverso */
-}
 
