@@ -16,7 +16,7 @@ library.add(fas, fab);
 
 const App = () => {
   return (
-      <div className='bg-gradient-to-b from-dark-black to-gray-900'>
+      <div className='bg-gradient-to-b from-black to-gray-900'>
         <Header1 />
         <main>
           <div><Home/></div>

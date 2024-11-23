@@ -5,7 +5,7 @@ import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 export default function Header1() {
   return (
     <motion.header 
-      className="absolute top-0 left-0 right-0 bg-cyan-transparent text-white p-6 shadow-md flex justify-between items-center z-10"
+      className="fixed top-0 left-0 right-0 bg-cyan-transparent text-white p-6 shadow-md flex justify-between items-center z-10"
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}

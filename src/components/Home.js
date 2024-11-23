@@ -4,13 +4,13 @@ import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
   return (
-    <section 
-      id="home" 
-      className="bg-transparent text-white min-h-[120vh] flex flex-col justify-center items-start bg-cover bg-center pt-20"
+    <section
+      id="home"
+      className="text-white min-h-[120vh] flex flex-col justify-center items-start bg-cover bg-center pt-20"
       style={{
-        backgroundImage: "url('/assets/image3.png')",
-        backgroundSize: 'cover',  // Aplica o efeito de zoom na imagem
-        backgroundPosition: 'center',  // Centraliza a imagem
+        backgroundImage: "url('/assets/image3.png'),linear-gradient(to top, black, #000045)",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
