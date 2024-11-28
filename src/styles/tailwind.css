@@ -14,12 +14,6 @@ body {
   margin: 0;
   padding: 0;
 }  
-
-.logo{
-  width: 85px;
-  height: 95px;
-}
-
 .bg-cyan-transparent {
   background-color: rgba(0, 78, 181, 0.416); /* Cor inicial transparente */
 }
