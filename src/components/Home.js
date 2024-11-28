@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="text-white min-h-[120vh] flex flex-col justify-center items-center sm:items-start bg-cover bg-center w-full px-4"
+      className="text-white min-h-[110vh] flex flex-col justify-center items-center sm:items-start bg-cover bg-center w-full px-4"
       style={{
         backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image3.png)`,
       }}
