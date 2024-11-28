@@ -17,15 +17,15 @@ library.add(fas, fab);
 const App = () => {
   return (
       <div className='bg-gradient-to-b from-black to-gray-900'>
-        <Navbar />
-        <main>
+          	
+          <div><Navbar/></div>
           <div><Home/></div>
           <div><Sobre/></div>
           <div><Habilidades/></div>
           <div><Experience/></div>
           <div><Projects/></div>
           <div><Contact/></div>
-        </main>
+        
       </div>
   );
 }
