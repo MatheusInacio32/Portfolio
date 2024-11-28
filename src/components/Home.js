@@ -8,7 +8,7 @@ export default function Home() {
       id="home"
       className="text-white min-h-[120vh] flex flex-col justify-center items-start bg-cover bg-center pt-20"
       style={{
-        backgroundImage: "url('/assets/image3.png'),linear-gradient(to top, black, #000045)",
+        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image3.png), linear-gradient(to top, black, #000045)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
