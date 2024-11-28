@@ -32,8 +32,8 @@ export default function Navbar() {
           <img 
             src={`${process.env.PUBLIC_URL}/assets/header.png`}
             alt="Matheus Nunes Inácio"
-            className="rounded-full w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-28"
-          />
+            className="rounded-full w-18 h-20 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-28 border-2 border-blue-800"
+            />
           <div>
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-white">
               Matheus Nunes Inácio
@@ -46,9 +46,6 @@ export default function Navbar() {
 
         {/* Navigation */}
         <nav className="mt-4 md:mt-0 flex flex-wrap justify-center md:justify-end space-x-4 sm:space-x-6">
-          <a href="#home" className="text-xs sm:text-sm md:text-base lg:text-lg text-white hover:text-teal-400">
-            Início
-          </a>
           <a href="#sobre" className="text-xs sm:text-sm md:text-base lg:text-lg text-white hover:text-teal-400">
             Sobre Mim
           </a>
