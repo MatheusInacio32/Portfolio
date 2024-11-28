@@ -23,15 +23,15 @@ const Contact = () => {
         {/* Lista de contatos */}
         <ul className="space-y-5 text-center sm:text-right">
           <li>
-            <FontAwesomeIcon icon={faEnvelope} className="text-blue-500" /> 
+            <FontAwesomeIcon icon={faEnvelope} className="text-blue-500 mr-1" /> 
             Email: <a href="mailto:mateusinacio32@gmail.com" className="text-blue-500 hover:underline">mateusinacio32@gmail.com</a>
           </li>
           <li>
-            <FontAwesomeIcon icon={faLinkedin} className="text-blue-500" /> 
+            <FontAwesomeIcon icon={faLinkedin} className="text-blue-500 mr-1" /> 
             LinkedIn: <a href="https://linkedin.com/in/matheusnunesinacio" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">linkedin.com/in/matheusnunesinacio</a>
           </li>
           <li>
-            <FontAwesomeIcon icon={faGithub} className="text-blue-500" /> 
+            <FontAwesomeIcon icon={faGithub} className="text-blue-500 mr-1" /> 
             GitHub: <a href="https://github.com/MatheusInacio32" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">github.com/MatheusInacio32</a>
           </li>
           <li>

@@ -16,7 +16,7 @@ library.add(fas, fab);
 
 const App = () => {
   return (
-    <div className="bg-gradient-to-b from-black to-gray-900 w-full min-h-screen overflow-hidden">
+    <div className="w-full min-h-screen overflow-hidden">
              	
           <div><Navbar/></div>
           <div><Home/></div>
