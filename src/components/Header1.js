@@ -30,7 +30,7 @@ export default function Header1() {
       <div className="text-white flex flex-col md:flex-row items-center md:justify-between">
         <div className="flex flex-col items-center space-y-2 md:flex-row md:items-center md:space-y-0 md:space-x-4">
           <img 
-            src="/assets/header.png" 
+            src={`${process.env.PUBLIC_URL}/assets/header.png`}
             alt="Matheus Nunes Inácio"
             className="logo rounded-full w-12 h-12 md:w-10 md:h-10" 
           />
