@@ -24,6 +24,8 @@ Aqui está um exemplo de `README.md` para o seu portfólio, incluindo uma visão
    ```
 3. **Inicie o servidor de desenvolvimento:**
    ```bash
-   npm run dev
+   npm start
+   npm run build
+   npm run deploy
    ```
 4. Abra seu navegador e acesse `http://localhost:3000` para visualizar o site.
