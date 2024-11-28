@@ -14,12 +14,10 @@ export default function Projects() {
         {projetos.map((projeto, index) => (
           <motion.div
             key={projeto.id}
-            className="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition duration-300"
-            initial={{ opacity: 0, y: 50 }} // Inicia com opacidade 0 e deslocamento para baixo
-            whileInView={{ opacity: 1, y: 0 }} // Aparece quando entra em vista
-            viewport={{ once: false }} // Garante que a animação ocorra sempre que entrar e sair de vista
-            transition={{ duration: 0.5, delay: index * 0.2 }} // Atraso sequencial para cada projeto
-            whileHover={{ scale: 1.05 }}
+            className="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <h3 className="text-xl mb-2 font-semibold">{projeto.nome}</h3>
             <a href={projeto.link} target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:underline">
