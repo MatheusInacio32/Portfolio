@@ -4,16 +4,14 @@ import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
   return (
-    <section
-      id="home"
-      className="text-white min-h-[120vh] flex flex-col justify-center items-start bg-cover bg-center pt-20"
-      style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image3.png), linear-gradient(to top, black, #000045)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+
+      <section
+        id="home"
+        className="text-white min-h-[120vh] flex flex-col justify-center items-start bg-cover bg-center w-full px-4"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image3.png)`,
+        }}
+      >
       <motion.div
         className="text-center"
         initial={{ opacity: 0 }}

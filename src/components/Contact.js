@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <motion.section
       id="contact"
-      className="px-9 bg-transparent text-white shadow-lg flex flex-col justify-between"
+      className="px-4 sm:px-9 bg-transparent text-white w-full"
       initial={{ opacity: 0 }} // Começa com opacidade 0 (invisível)
       whileInView={{ opacity: 1 }} // Torna o componente visível gradualmente
       transition={{ duration: 0.5 }} // Duração da transição (em segundos)

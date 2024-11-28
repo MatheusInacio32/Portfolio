@@ -6,7 +6,7 @@ export default function Sobre() {
   return (
     <motion.section
       id="sobre"
-      className="bg-transparent text-white pt-2 pb-60 px-8 min-h-[30vh] flex flex-col justify-center"
+      className="bg-transparent text-white pt-2 pb-60 px-4 sm:px-8 w-full"
       initial={{ opacity: 0, y: 50 }} // Animação inicial de opacidade e movimento
       whileInView={{ opacity: 1, y: 0 }} // Animação quando o componente entra em vista
       transition={{ duration: 0.5 }} // Tempo de transição
