@@ -25,10 +25,11 @@ export default function Habilidades() {
           <motion.div
             key={index}
             className="flex flex-col items-center p-4 bg-gray-800 rounded-lg shadow-lg"
-            initial={{ opacity: 0, y: 50 }} // Inicia com opacidade 0 e deslocado para baixo
-            whileInView={{ opacity: 1, y: 0 }} // Torna visível e reposiciona quando entra em vista
-            viewport={{ once: false }} // Repete a animação ao rolar para dentro e fora da vista
-            transition={{ duration: 0.6, delay: index * 0.1 }} // Atraso em sequência para cada item
+            initial={{ opacity: 0 }} // Inicia com opacidade 0 (invisível)
+            whileInView={{ opacity: 1 }} // Torna visível quando entra em vista
+            viewport={{ once: false }} // Permite a animação a cada entrada na viewport
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Atraso sequencial para cada projeto
+            whileHover={{ scale: 1.05 }}
           >
             <FontAwesomeIcon icon={skill.icon} size="3x" className="text-blue-400 mb-4" />
             <h3 className="text-xl font-medium">{skill.title}</h3>
