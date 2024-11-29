@@ -39,7 +39,7 @@ export default function Navbar() {
               Matheus Nunes Inácio
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-teal-400">
-              Front-end Developer
+              Full-Stack Developer
             </p>
           </div>
         </div>
