@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Slider from "react-slick"; // Importa o carrossel do react-slick
+import Slider from "react-slick";
 
 export default function Projects() {
   const projetos = [
@@ -44,26 +44,18 @@ export default function Projects() {
     autoplay: true,
     autoplaySpeed: 3000,
     lazyLoad: "ondemand",
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        }
-      }
-    ]
   };
 
   return (
     <section id="projetos" className="bg-transparent text-white p-8 mb-40 pb-4">
       <h1 className="text-4xl font-semibold mb-8">Projetos em Destaque</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5 }}
+      >
         {projetos.map((projeto) => (
           <motion.a
             href={projeto.link}
@@ -71,9 +63,6 @@ export default function Projects() {
             rel="noopener noreferrer"
             key={projeto.id}
             className="bg-cyan p-4 rounded-lg shadow-lg hover:bg-gray-900 block"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
             aria-label={`Confira mais sobre o projeto ${projeto.nome}`}
           >
             <h3 className="text-xl mb-6 font-semibold">{projeto.nome}</h3>
@@ -82,20 +71,20 @@ export default function Projects() {
             <div className="relative w-full h-full overflow-hidden rounded-lg mb-4">
               <Slider {...settings}>
                 {projeto.imagens.map((imagem, index) => (
-                  <motion.div key={index}>
+                  <div key={index}>
                     <img
                       src={imagem}
                       alt={`Imagem do projeto ${projeto.nome} - Slide ${index + 1}`}
                       className="w-full h-full object-cover rounded-lg"
                       onError={(e) => e.target.src = `${process.env.PUBLIC_URL}/assets/default.jpg`}
                     />
-                  </motion.div>
+                  </div>
                 ))}
               </Slider>
             </div>
           </motion.a>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

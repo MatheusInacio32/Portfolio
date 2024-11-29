@@ -15,7 +15,7 @@ const skillsData = [
 
 export default function Habilidades() {
   return (
-    <div className="bg-transparent text-white pt-24 px-6 sm:px-8 pb-16">
+    <div id="habilidades"className="bg-transparent text-white pt-24 px-6 sm:px-8 pb-16">
       <h2 className="text-5xl font-semibold text-center mb-8">Habilidades</h2>
       <div 
         className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
