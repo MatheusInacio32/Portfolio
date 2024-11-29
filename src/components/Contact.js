@@ -13,7 +13,7 @@ const Contact = () => {
       transition={{ duration: 0.5 }} // Duração da transição (em segundos)
     >
       {/* Contêiner principal ajustado para centralização em dispositivos móveis */}
-      <div className="flex flex-col sm:flex-row sm:justify-between items-center sm:items-start pb-20 space-y-8 sm:space-y-0">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-center sm:items-start pb-48 space-y-8 sm:space-y-0">
         {/* Texto e introdução */}
         <div className="text-center sm:text-left">
           <h2 className="text-4xl mb-4 font-semibold">Contato</h2>

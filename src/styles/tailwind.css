@@ -24,6 +24,12 @@ body {
 .transition-colors {
   transition: background-color 0.8s ease;
 }
+.bg-white {
+  background-color: rgba(255, 255, 255, 0.644); /* Cor inicial transparente */
+}
+.bg-cyan {
+  background-color: rgb(0, 33, 75); /* Cor inicial transparente */
+}
 
 .bg-gradient-3 {
   background: radial-gradient(circle, 
