@@ -1,8 +1,7 @@
-
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"; // Importando o ícone de seta
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   return (
@@ -13,14 +12,14 @@ export default function Home() {
         backgroundImage: `url(${process.env.PUBLIC_URL}/assets/image3.png)`,
       }}
     >
-      {/* Container do conteúdo */}
+    
       <motion.div
         className="text-center sm:text-left"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5 }}
       >
-        {/* Títulos */}
+      
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Olá, Bem-Vindo! 👋
         </h1>
@@ -30,7 +29,7 @@ export default function Home() {
           <span className="text-blue-400 font-semibold">Experiências</span>.
         </h2>
 
-        {/* Ícones de redes sociais */}
+      
         <div className="flex justify-center sm:justify-start space-x-4 mt-6">
           <a
             href="https://linkedin.com/in/matheusnunesinacio"
@@ -51,9 +50,9 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* Botão de seta animado */}
+    
       <motion.div
-        className="absolute bottom-10 flex justify-center items-center"
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex justify-center items-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
@@ -70,7 +69,6 @@ export default function Home() {
             ease: "easeInOut", // Suaviza a animação
           }}
         >
-          
           <FontAwesomeIcon
             icon={faChevronDown}
             className="text-black text-3xl cursor-pointer"

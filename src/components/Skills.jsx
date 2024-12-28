@@ -13,7 +13,7 @@ const skillsData = [
   { icon: faPhp, title: "PHP", description: "Linguagem popular para desenvolvimento de back-end dinâmico." },
 ];
 
-export default function Habilidades() {
+export default function Skills() {
   return (
     <div id="habilidades"className="bg-transparent text-white pt-24 px-6 sm:px-8 pb-16">
       <h2 className="text-5xl font-semibold text-center mb-8">Habilidades</h2>

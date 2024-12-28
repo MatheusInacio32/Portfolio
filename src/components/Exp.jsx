@@ -32,7 +32,7 @@ const experienceData = [
   },
 ];
 
-export default function Experience() {
+export default function Exp() {
   return (
     <section id="experience" className="p-8 bg-transparent text-800 min-h-screen">
       <h2 className="text-4xl text-white font-semibold mb-8 text-center">Experiência Profissional</h2>

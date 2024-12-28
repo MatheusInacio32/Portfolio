@@ -26,7 +26,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Header Content */}
+ 
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center space-x-6">
           <img 
@@ -44,7 +44,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="mt-4 md:mt-0 flex flex-wrap justify-center md:justify-end space-x-4 sm:space-x-6">
           <a href="#sobre" className="text-xs sm:text-sm md:text-base lg:text-lg text-white hover:text-teal-400">
             Sobre Mim

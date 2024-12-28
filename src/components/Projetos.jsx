@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Slider from "react-slick";
 
-export default function Projects() {
+export default function Projetos() {
   const projetos = [
     { 
       id: 1, 
@@ -30,7 +30,7 @@ export default function Projects() {
       imagens: [
         `${process.env.PUBLIC_URL}/assets/senha1.png`, 
         `${process.env.PUBLIC_URL}/assets/senha2.png`, 
-        `${process.env.PUBLIC_URL}/assets/senha1.png`
+        `${process.env.PUBLIC_URL}/assets/senha3.png`
       ]
     }
   ];
