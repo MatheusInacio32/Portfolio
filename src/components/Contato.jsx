@@ -46,7 +46,7 @@ const Contato = () => {
         transition={{ duration: 0.6, delay: 0.5 }}
         viewport={{ once: true }}
       >
-        <p className="text-gray-400">© 2024 Matheus Nunes Inácio - Todos os direitos reservados</p>
+        <p className="text-gray-400">© ReactApp - Todos os direitos reservados</p>
         <div className="flex justify-center space-x-4 mt-4">
           <a href="https://linkedin.com/in/matheusnunesinacio" target="_blank" rel="noopener noreferrer" className={socialIconStyles} aria-label="LinkedIn">
             <FontAwesomeIcon icon={faLinkedin} className="w-8 h-8 text-blue-600" />
