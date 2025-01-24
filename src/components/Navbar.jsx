@@ -30,9 +30,9 @@ export default function Navbar() {
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center space-x-6">
           <img 
-            src={`${process.env.PUBLIC_URL}/assets/header.png`}
+            src={`${process.env.PUBLIC_URL}/assets/header1.png`}
             alt="Matheus Nunes Inácio"
-            className="rounded-full w-18 h-20 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-28 border-2 border-blue-800"
+            className="rounded-full w-18 h-20 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 border-2 border-white"
             />
           <div>
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-white">

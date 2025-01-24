@@ -12,8 +12,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 library.add(fas, fab);
 const LandingPage = () =>{
     return (
-        <div className="w-full min-h-screen overflow-hidden">
-                     
+        <div className="w-full min-h-screen overflow-hidden">    
             <div> < Navbar  /> </div>
             <div> < Home    /> </div>
             <div> < Sobre   /> </div>
