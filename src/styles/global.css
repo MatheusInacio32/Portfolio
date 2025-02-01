@@ -1,48 +1,93 @@
-/* 
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-Não Apagar (usar para Deploy)
-*/
+
+/* 
 @tailwind base;
 @tailwind components; 
 @tailwind utilities;    
-
+*/
 
 body {
   margin: 0;
   padding: 0;
-}  
-.bg-cyan-transparent {
-  background-color: rgba(0, 78, 181, 0.416);
 }
-.bg-blue-600 {
-  background-color: rgb(0, 0, 0); 
+.white-navbar {
+  background-color: rgba(239, 239, 239, 0.945);
+}  
+.purple-navbar{
+  background-color: #430063c0;
 }
 .transition-colors {
   transition: background-color 0.8s ease;
 }
-.bg-white {
-  background-color: rgba(255, 255, 255, 0.644);
-}
-.bg-cyan {
-  background-color: rgb(0, 33, 75);
-}
-.bg-gradient-3 {
-  background: radial-gradient(circle, 
-    #00143a 1%,   
-    #1a1a1a 60%,   
-    #000000 100%   
-  );
-}
 
-.slick-dots li button:before {
-  color: white !important;
+.carrosel {
+  background-color: #5700a3;
+}
+.slick-dots li button:before { /* Botão Carrossel */
+  color: rgb(255, 255, 255) !important;
   opacity: 0.75 !important; 
 }
-
 .slick-dots li.slick-active button:before {
-  color: white !important; 
+  color: rgb(98, 0, 255) !important; 
   opacity: 1 !important;
+}
+
+@layer utilities {
+  .wtransp {
+    background-color: rgba(255, 255, 255, 0.475);
+  }
+  .SombraB{
+    text-shadow: 2px 2px 10px rgb(0, 0, 0);
+  }
+  .SombraL{
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.655);
+  }
+  .text-shadow-none{
+    text-shadow: none;
+  }
+  .bg-claro {
+    background: radial-gradient(circle,  
+      #ffffff 5%,  
+      #e7d2ff 20%,  
+      #d5a8ff 30%,  
+      #c88cff 40%,  
+      #a76ae0 50%,  
+      #923df3 58%,  
+      #9f3ff5 65%,  
+      #bd5aff 73%,  
+      #e7d0f6 80%,  
+      #ffffff 88%,  
+      #ffffff 95%,  
+      #ffffff 100%  
+    );
+  }
+  @media (max-width: 640px) {
+    .bg-claro {
+      background: radial-gradient(circle,  
+        #fef5ff 5%,    /* Branco rosado bem claro no centro */
+        #f8e1ff 15%,   /* Lilás bem suave */
+        #eac5ff 25%,   /* Rosa clarinho */
+        #dca8ff 35%,   /* Lilás médio */
+        #c88cff 45%,   /* Roxo suave */
+        #b76aff 55%,   /* Roxo vibrante */
+        #9d3aff 65%,   /* Transição para roxo escuro */
+        #7e2ae0 75%,   /* Roxo profundo */
+        #8827ff 85%,   /* Azul arroxeado */
+        #a872ff 90%,   /* Azul levemente mais claro */
+        #7d48d2 95%,   /* Tom final mais claro que antes */
+        #6a20e0 100%   /* Final ainda mantendo um toque vibrante */
+      );
+    }
+    
+  }
+}
+@media (max-width: 1466px) {
+  #home {
+    background-size: cover !important; 
+    background-position: center center !important;  
+  }
 }

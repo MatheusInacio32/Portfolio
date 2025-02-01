@@ -2,9 +2,18 @@ import { motion } from "framer-motion";
 
 const experienceData = [
   {
-    role: "Freelancer",
+    role: "Estagiário de Implantação e Suporte em TI",
+    company: "💜Lode - We Love Code💜",
+    duration: "2025 – Presente",
+    description: `Implantação de Sistemas e Suporte ao Cliente 
+                · Banco de dados · Servidor Linux · Amazon Web Services · Java SE · Postgree SQL  
+                · Implantação de Sistemas · Suporte · Servidor Apache · Apache Tomcat · Modelo e Desenvolvimento de Exames`,
+    img: `${process.env.PUBLIC_URL}/assets/Lode.png`,
+  },
+  {
+    role: "Desenvolvedor  Web",
     company: "Agência Astro",
-    duration: "Full Stack Developer | 2023 – Presente",
+    duration: "Freelancer | 2023 – Presente",
     description: `Desenvolvimento de sites e sistemas para empreendedores, 
                   com foco em melhorar a presença digital e resultados de negócios. 
                   Responsável pelo front-end e back-end, utilizando tecnologias como 
@@ -35,11 +44,11 @@ const experienceData = [
 export default function Exp() {
   return (
     <section id="experience" className="p-8 bg-transparent text-800 min-h-screen">
-      <h2 className="text-4xl text-white font-semibold mb-8 text-center">Experiência Profissional</h2>
+      <h2 className="text-4xl text-black font-semibold mb-8 text-center">Experiência Profissional</h2>
       {experienceData.map((exp, index) => (
         <motion.div
           key={index}
-          className="mb-8 p-6 bg-white rounded-lg shadow-lg"
+          className="mb-8 p-6 wtransp rounded-lg shadow-lg"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}

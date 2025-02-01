@@ -48,7 +48,7 @@ export default function Projetos() {
 
   return (
     <section id="projetos" className="bg-transparent text-white p-8 mb-40 pb-4">
-      <h1 className="text-4xl font-semibold mb-8">Projetos em Destaque</h1>
+      <h1 className="text-4xl font-semibold mb-8 text-black">Projetos em Destaque</h1>
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
         initial={{ opacity: 0 }}
@@ -62,7 +62,7 @@ export default function Projetos() {
             target="_blank"
             rel="noopener noreferrer"
             key={projeto.id}
-            className="bg-cyan p-4 rounded-lg shadow-lg hover:bg-gray-900 block"
+            className="carrosel p-4 rounded-lg shadow-lg hover:bg-gray-900 block"
             aria-label={`Confira mais sobre o projeto ${projeto.nome}`}
           >
             <h3 className="text-xl mb-6 font-semibold">{projeto.nome}</h3>

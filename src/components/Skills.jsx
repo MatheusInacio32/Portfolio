@@ -16,7 +16,7 @@ const skillsData = [
 export default function Skills() {
   return (
     <div id="habilidades"className="bg-transparent text-white pt-24 px-6 sm:px-8 pb-16">
-      <h2 className="text-5xl font-semibold text-center mb-8">Habilidades</h2>
+      <h2 className="text-5xl font-semibold text-center mb-8 sm:text-black">Habilidades</h2>
       <div 
         className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         style={{
@@ -26,11 +26,11 @@ export default function Skills() {
         {skillsData.map((skill, index) => (
           <motion.div
             key={index}
-            className="flex flex-col items-center p-3 sm:p-4 bg-gray-800 rounded-md sm:rounded-lg shadow-md sm:shadow-lg"
-            initial={{ opacity: 0 }} // Inicia com opacidade 0 (invisível)
-            whileInView={{ opacity: 1 }} // Torna visível quando entra em vista
-            viewport={{ once: false }} // Permite a animação a cada entrada na viewport
-            transition={{ duration: 1.5 }} // Transição de fade in suave
+            className="flex flex-col items-center p-3 sm:p-4 bg-purple-900 rounded-md sm:rounded-lg shadow-md sm:shadow-lg"
+            initial={{ opacity: 0 }}        // Inicia com opacidade 0 (invisível)
+            whileInView={{ opacity: 1 }}    // Torna visível quando entra em vista
+            viewport={{ once: false }}      // Permite a animação a cada entrada na viewport
+            transition={{ duration: 1.5 }}  // Transição de fade in suave
             whileHover={{ scale: 1.05 }}
           >
             <FontAwesomeIcon icon={skill.icon} size="2x" className="text-blue-400 mb-3" />
