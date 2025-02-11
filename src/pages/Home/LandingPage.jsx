@@ -1,27 +1,34 @@
-import Navbar from '../../components/Navbar';
-import Home from '../../components/Home';
-import Sobre from '../../components/Sobre';
-import Exp from '../../components/Exp';
-import Projetos from '../../components/Projetos';
-import Contato from '../../components/Contato';
-import Skills from '../../components/Skills';
+
+import Navbar from '../../components/Navbar'; 
+import Homebar from '../../components/Home';
+import Sobremim from '../../components/Sobre'; 
+import Jornada from '../../components/Jornada'; 
+import Projetos from '../../components/Projetos'; 
+import Contato from '../../components/Contato'; 
+import Talento from '../../components/Talento'; 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+import { useTheme } from '../../contexts/ThemeContext'; 
 
 library.add(fas, fab);
-const LandingPage = () =>{
-    return (
-        <div className="bg-claro w-full min-h-screen overflow-hidden">    
-            <div> < Navbar  /> </div>
-            <div> < Home    /> </div>
-            <div> < Sobre   /> </div>
-            <div> < Skills  /> </div>
-            <div> < Exp     /> </div>
-            <div> < Projetos/> </div>
-            <div> < Contato /> </div>
-                
-        </div>
-        );
-}
+
+const LandingPage = () => {
+  const { isDark } = useTheme();
+
+  return (
+    <div className={`w-full min-h-screen overflow-hidden transition-colors duration-0 ${
+      isDark ? 'bg-gradient-dark text-dark-text-primary' : 'bg-gradient-light text-light-text-primary'
+    }`}>
+      <Navbar  />
+      <Homebar />
+      <Sobremim/>
+      <Talento />
+      <Jornada />
+      <Projetos/>
+      <Contato />
+    </div>
+  );
+};
+
 export default LandingPage;

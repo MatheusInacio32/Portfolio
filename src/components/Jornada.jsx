@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 const experienceData = [
   {
@@ -11,7 +12,7 @@ const experienceData = [
     img: `${process.env.PUBLIC_URL}/assets/Lode.png`,
   },
   {
-    role: "Desenvolvedor  Web",
+    role: "Desenvolvedor Web",
     company: "Agência Astro",
     duration: "Freelancer | 2023 – Presente",
     description: `Desenvolvimento de sites e sistemas para empreendedores, 
@@ -42,16 +43,28 @@ const experienceData = [
 ];
 
 export default function Exp() {
+  const { isDark } = useTheme();
+
   return (
-    <section id="experience" className="p-8 bg-transparent text-800 min-h-screen">
-      <h2 className="text-4xl text-black font-semibold mb-8 text-center">Experiência Profissional</h2>
+    <section 
+      id="experience" 
+      className={`p-8 min-h-screen transition-colors duration-500 
+        ${isDark ? "bg-transparent text-gray-100" : "bg-transparent text-gray-900"}`}
+    >
+      <h2 className="text-4xl font-semibold mb-8 text-center">
+        Experiência Profissional
+      </h2>
+
       {experienceData.map((exp, index) => (
         <motion.div
           key={index}
-          className="mb-8 p-6 wtransp rounded-lg shadow-lg"
+          className={`mb-8 p-6 rounded-lg shadow-lg transition-all 
+            ${isDark ? "bg-gray-800" : "bg-white"}`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
           transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.03 }}
         >
           <div className="flex items-center">
             <img
@@ -61,10 +74,12 @@ export default function Exp() {
             />
             <div>
               <h3 className="text-2xl font-semibold">{exp.role} | {exp.company}</h3>
-              <p className="text-gray-600">{exp.duration}</p>
+              <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+                {exp.duration}
+              </p>
             </div>
           </div>
-          <p className="mt-4">{exp.description}</p>
+          <p className="mt-4 text-sm">{exp.description}</p>
         </motion.div>
       ))}
     </section>

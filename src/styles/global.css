@@ -1,44 +1,64 @@
-
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-
-/* 
 @tailwind base;
-@tailwind components; 
-@tailwind utilities;    
-*/
+@tailwind components;
+@tailwind utilities;
 
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
 body {
-  margin: 0;
-  padding: 0;
-}
-.white-navbar {
-  background-color: rgba(239, 239, 239, 0.945);
-}  
-.purple-navbar{
-  background-color: #430063c0;
-}
-.transition-colors {
-  transition: background-color 0.8s ease;
+  @apply transition-colors duration-0;
 }
 
-.carrosel {
-  background-color: #5700a3;
+/* escuro */
+.dark {
+  color-scheme: dark;
 }
-.slick-dots li button:before { /* Botão Carrossel */
+
+.dark .carrosel {
+  @apply bg-gray-800;
+}
+
+.dark .wtransp {
+  @apply bg-gray-800 bg-opacity-80;
+}
+
+/* claro */
+.light .carrosel {
+  @apply bg-gray-200;
+}
+
+.light .wtransp {
+  @apply bg-white bg-opacity-80;
+}
+
+/* Estilos para os botões do carrossel */
+.slick-dots li button:before {
   color: rgb(255, 255, 255) !important;
-  opacity: 0.75 !important; 
+  opacity: 0.75 !important;
 }
+
 .slick-dots li.slick-active button:before {
-  color: rgb(98, 0, 255) !important; 
+  color: rgb(98, 0, 255) !important;
   opacity: 1 !important;
 }
 
+@media (max-width: 1466px) {
+  #home {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+
+
+/* Fundo */
 @layer utilities {
-  .wtransp {
-    background-color: rgba(255, 255, 255, 0.475);
+  .purple-navbar{
+    background-color: #430063c0;
   }
   .SombraB{
     text-shadow: 2px 2px 10px rgb(0, 0, 0);
@@ -49,45 +69,55 @@ body {
   .text-shadow-none{
     text-shadow: none;
   }
-  .bg-claro {
-    background: radial-gradient(circle,  
-      #ffffff 5%,  
-      #e7d2ff 20%,  
-      #d5a8ff 30%,  
-      #c88cff 40%,  
-      #a76ae0 50%,  
-      #923df3 58%,  
-      #9f3ff5 65%,  
-      #bd5aff 73%,  
-      #e7d0f6 80%,  
-      #ffffff 88%,  
-      #ffffff 95%,  
-      #ffffff 100%  
+  .bg-gradient-dark {
+    background: radial-gradient(circle,
+      #00143a 1%,   /* Início: Azul profundo */
+      #001e43 15%,  /* Transição 1 */
+      #00274c 29%,  /* Transição 2 */
+      #001f36 43%,  /* Transição 3 */
+      #2a2a2a 60%,  /* Cor intermediária conforme referência */
+      #282828 67%,  /* Transição 4 */
+      #252525 74%,  /* Transição 5 */
+      #171717 81%,  /* Transição 6 */
+      #111111 88%,  /* Transição 7 */
+      #000000 95%,  /* Transição 8 */
+      #000000 98%,  /* Transição 9 */
+      #000000 100%  /* Final: Preto */
     );
-  }
-  @media (max-width: 640px) {
-    .bg-claro {
+  
+    }
+    .bg-gradient-light {
       background: radial-gradient(circle,  
-        #fef5ff 5%,    /* Branco rosado bem claro no centro */
-        #f8e1ff 15%,   /* Lilás bem suave */
-        #eac5ff 25%,   /* Rosa clarinho */
-        #dca8ff 35%,   /* Lilás médio */
-        #c88cff 45%,   /* Roxo suave */
-        #b76aff 55%,   /* Roxo vibrante */
-        #9d3aff 65%,   /* Transição para roxo escuro */
-        #7e2ae0 75%,   /* Roxo profundo */
-        #8827ff 85%,   /* Azul arroxeado */
-        #a872ff 90%,   /* Azul levemente mais claro */
-        #7d48d2 95%,   /* Tom final mais claro que antes */
-        #6a20e0 100%   /* Final ainda mantendo um toque vibrante */
+        #c699f9 5%,  
+        #ddc7f7 20%,  
+        #d5a8ff 30%,  
+        #c88cff 40%,  
+        #a76ae0 50%,  
+        #923df3 58%,  
+        #9f3ff5 65%,  
+        #bd5aff 73%,  
+        #edd8fb 80%,  
+        #ffffff 88%,  
+        #ffffff 95%,  
+        #ffffff 100% 
       );
     }
-    
-  }
-}
-@media (max-width: 1466px) {
-  #home {
-    background-size: cover !important; 
-    background-position: center center !important;  
-  }
+    @media (max-width: 640px) {
+      .bg-gradient-light {
+        background: radial-gradient(circle,  
+          #b77ffa  5%,   
+          #f8e1ff 15%,   
+          #eac5ff 25%,  
+          #dca8ff 35%,   
+          #c88cff 45%,  
+          #b76aff 55%,   
+          #ae5cff 65%,  
+          #9134fd 75%,   
+          #caaaf1 85%,  
+          #e1cfff 90%,  
+          #ffffff 95%,   
+          #ffffff 100%   
+        );
+      }
+    }
 }

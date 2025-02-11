@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import Slider from "react-slick";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Projetos() {
+  const { isDark } = useTheme();
+
   const projetos = [
     { 
       id: 1, 
@@ -47,8 +50,16 @@ export default function Projetos() {
   };
 
   return (
-    <section id="projetos" className="bg-transparent text-white p-8 mb-40 pb-4">
-      <h1 className="text-4xl font-semibold mb-8 text-black">Projetos em Destaque</h1>
+    <section 
+      id="projetos" 
+      className={`p-8 mb-40 pb-4 transition-colors duration-500 
+        ${isDark ? "bg-transparent text-white" : "bg-transparent text-gray-900"}`}
+    >
+      <h1 className={`text-4xl font-semibold mb-8 text-center 
+        ${isDark ? "text-white" : "text-black"}`}
+      >
+        Projetos em Destaque
+      </h1>
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
         initial={{ opacity: 0 }}
@@ -62,10 +73,15 @@ export default function Projetos() {
             target="_blank"
             rel="noopener noreferrer"
             key={projeto.id}
-            className="carrosel p-4 rounded-lg shadow-lg hover:bg-gray-900 block"
+            className={`p-4 rounded-lg shadow-lg transition-all 
+              ${isDark ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-200"}`}
             aria-label={`Confira mais sobre o projeto ${projeto.nome}`}
           >
-            <h3 className="text-xl mb-6 font-semibold">{projeto.nome}</h3>
+            <h3 className={`text-xl mb-6 font-semibold 
+              ${isDark ? "text-white" : "text-black"}`}
+            >
+              {projeto.nome}
+            </h3>
 
             {/* Carrossel de Imagens */}
             <div className="relative w-full h-full overflow-hidden rounded-lg mb-4">
