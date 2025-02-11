@@ -31,7 +31,7 @@ export default function Navbar() {
             <img
               src={`${process.env.PUBLIC_URL}/assets/header1.png`}
               alt="Matheus Nunes Inácio"
-              className="rounded-full w-20 h-20 border-1 border-white dark:border-gray-300"
+              className="rounded-full w-16 h-16 border-1 border-white dark:border-gray-300"
             />
             <div>
               <p className=" text-19px font-bold text-white leading-tight mt-4">Matheus Nunes Inácio</p>
@@ -43,7 +43,7 @@ export default function Navbar() {
           {/* Botão de Tema apenas mobile */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-violet-900 dark:hover:bg-gray-700 transition-colors flex items-center justify-center border border-gray-100 dark:border-gray-300"
+            className="p-2 rounded-full hover:bg-violet-900 dark:hover:bg-yellow-800 transition-colors flex items-center justify-center border border-gray-100 dark:border-gray-300"
             aria-label={`Alternar para tema ${isDark ? "claro" : "escuro"}`}
           >
             <FontAwesomeIcon
@@ -75,31 +75,31 @@ export default function Navbar() {
           > 
           <a
             href="#sobre"
-            className="hover:text-violet-400 text-[13px] md:text-[19px] lg:text-lg"
+            className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
           >
             Sobre Mim
           </a>
           <a
             href="#habilidades"
-            className="hover:text-violet-400 text-[13px] md:text-[19px] lg:text-lg"
+            className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
           >
             Habilidades
           </a>
           <a
             href="#experience"
-            className="hover:text-violet-400 text-[13px] md:text-[19px] lg:text-lg"
+            className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
           >
             Experiência
           </a>
           <a
             href="#projetos"
-            className="hover:text-violet-400 text-[13px] md:text-[19px] lg:text-lg"
+            className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
           >
             Projetos
           </a>
           <a
             href="#contact"
-            className="hover:text-violet-400 text-[13px] md:text-[19px] lg:text-lg"
+            className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
           >
             Contato
           </a>
