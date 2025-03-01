@@ -36,7 +36,7 @@ export default function Navbar() {
             <div>
               <p className=" text-19px font-bold text-white leading-tight mt-4">Matheus Nunes Inácio</p>
               <p className=" text-sm text-purple-100 dark:text-gray-400 leading-tight">
-                Desenvolvedor Full Stack
+                Desenvolvedor Front End
               </p>
             </div>
           </div>
