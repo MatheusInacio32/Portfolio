@@ -13,7 +13,7 @@ export default function Sobre() {
       <h2 className="text-5xl font-semibold mb-5">Sobre Mim 📝</h2>
       <Typed
         strings={[  
-          `🚀 Sou um desenvolvedor Full Stack empolgado por criar soluções Web digitais e inovadoras. Atualmente, atuo como <strong class="text-blue-300 font-semibold">Estagiário de Implantação e Suporte</strong>, onde aprimoro minhas habilidades técnicas e analíticas em um ótimo ambiente com muitos bons profissionais. <br>  
+          `🚀 Sou um desenvolvedor Front End empolgado por criar soluções Web digitais e inovadoras. Atualmente, atuo como <strong class="text-blue-300 font-semibold">Estagiário de Implantação e Suporte</strong>, onde aprimoro minhas habilidades técnicas e analíticas em um ótimo ambiente com muitos bons profissionais. <br>  
           Além disso, gerencio minha própria agência, a <strong class="text-blue-300 font-semibold">Agência Astro</strong>, onde ajudo empreendedores a fortalecer sua presença digital com sites e landing pages.<br> Minha stack principal inclui <strong class="text-blue-300 font-semibold">React</strong>, <strong class="text-blue-300 font-semibold">Nest.js</strong> e técnicas modernas de <strong class="text-blue-300 font-semibold">UX/UI Design</strong> 🎨✨. <br>
           🎓 Atualmente, estou cursando <strong class="text-blue-300 font-semibold">Análise e Desenvolvimento de Sistemas</strong> na <strong class="text-blue-300 font-semibold">Unicesumar de Maringá</strong>, com previsão de formatura em 2025. Sempre em busca de novos desafios e objetivos! evoluindo não só como Dev mas como pessoa💡💻`,
         ]}
