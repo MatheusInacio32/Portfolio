@@ -24,9 +24,7 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col md:flex-row items-center justify-between">
-        {/* Container superior para mobile */}
         <div className="w-full flex justify-between items-center md:hidden">
-          {/* Logo e Nome */}
           <div className="flex items-center space-x-2">
             <img
               src={`${process.env.PUBLIC_URL}/assets/header1.png`}
@@ -34,13 +32,14 @@ export default function Navbar() {
               className="rounded-full w-16 h-16 border-1 border-white dark:border-gray-300"
             />
             <div>
-              <p className=" text-19px font-bold text-white leading-tight mt-4">Matheus Nunes Inácio</p>
-              <p className=" text-sm text-purple-100 dark:text-gray-400 leading-tight">
+              <p className="text-19px font-bold text-white leading-tight mt-4">
+                Matheus Nunes Inácio
+              </p>
+              <p className="text-sm text-purple-100 dark:text-gray-400 leading-tight">
                 Desenvolvedor Front End
               </p>
             </div>
           </div>
-          {/* Botão de Tema apenas mobile */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-violet-900 dark:hover:bg-yellow-800 transition-colors flex items-center justify-center border border-gray-100 dark:border-gray-300"
@@ -52,8 +51,6 @@ export default function Navbar() {
             />
           </button>
         </div>
-
-        {/* Logo e Nome para desktop */}
         <div className="hidden md:flex items-center space-x-4">
           <img
             src={`${process.env.PUBLIC_URL}/assets/header1.png`}
@@ -61,18 +58,19 @@ export default function Navbar() {
             className="rounded-full w-24 h-24 border-2 border-gray-300 dark:border-gray-300"
           />
           <div>
-            <h1 className="text-4xl font-bold text-white">Matheus Nunes Inácio</h1>
+            <h1 className="text-4xl font-bold text-white">
+              Matheus Nunes Inácio
+            </h1>
             <p className="text-base text-purple-300 dark:text-gray-400">
               Desenvolvedor Full Stack
             </p>
           </div>
         </div>
-        {/* Navegação */}
         <nav
           className={`mt-3 md:mt-2 flex flex-nowrap justify-center md:justify-end space-x-3 ${
-            isScrolled ? 'text-purple-200' : 'text-white'
+            isScrolled ? "text-purple-200" : "text-white"
           }`}
-          > 
+        >
           <a
             href="#sobre"
             className="hover:text-violet-400 text-[12px] md:text-[19px] lg:text-lg"
@@ -103,7 +101,6 @@ export default function Navbar() {
           >
             Contato
           </a>
-          {/* Botão de Tema apenas desktop */}
           <button
             onClick={toggleTheme}
             className="relative -translate-y-0.5 hidden md:flex p-2 rounded-full hover:bg-blue-800 dark:hover:bg-yellow-900 transition-colors items-center justify-center border-2 border-white dark:border-yellow-400 ml-2 self-center"

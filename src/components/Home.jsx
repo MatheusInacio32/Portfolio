@@ -28,37 +28,34 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.5 }}
       >
-      <h1
-        className={`text-4xl md:text-6xl font-bold mb-4 SombraB ${
-          isDark ? "text-gray-100" : "text-white sm:text-black sm:text-shadow-none"
-        }`}
-      >
-        Olá, Bem-Vindo!🚀
-      </h1>
-      <h2
-        className={`text-3xl md:text-5xl mb-6 leading-relaxed ${
-          isDark ? "text-white" : "text-black"
-        }`}
-      >
-        Explore meu{" "}
-        <span className={`SombraB font-semibold ${isDark ? "text-purple-500 SombraB" : "text-white"}`}>
-          Portfólio📚
-        </span> e
-        descubra meus{" "}
-        <span className={`font-semibold ${isDark ? "text-purple-500 SombraB" : "text-blue-700 sm:text-white sm:SombraB"}`}>
-          Projetos
-        </span> e{" "}
-        <span className={`font-semibold ${isDark ? "text-purple-500 SombraB" : "text-blue-700 sm:text-white sm:SombraB"}`}>
-          Experiências
-        </span>.
-      </h2>
+        <h1
+          className={`text-4xl md:text-6xl font-bold mb-4 SombraB ${
+            isDark ? "text-gray-100" : "text-white sm:text-black sm:text-shadow-none"
+          }`}
+        >
+          Olá, Bem-Vindo!🚀
+        </h1>
+        <h2 className={`text-3xl md:text-5xl mb-6 leading-relaxed`}>
+          Explore meu{" "}
+          <span className={`SombraB font-semibold ${isDark ? "text-purple-500" : "text-white"}`}>
+            Portfólio📚
+          </span>{" "}
+          e descubra meus{" "}
+          <span className={`font-semibold ${isDark ? "text-purple-500" : "text-blue-700 sm:text-white sm:SombraB"}`}>
+            Projetos
+          </span>{" "}
+          e{" "}
+          <span className={`font-semibold ${isDark ? "text-purple-500" : "text-blue-700 sm:text-white sm:SombraB"}`}>
+            Experiências
+          </span>.
+        </h2>
 
         <div className="flex justify-center sm:justify-start sm:ml-3 space-x-4 mt-6">
           <a
             href="https://linkedin.com/in/matheusnunesinacio"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-800 sm:text-blue-800 text-4xl hover:scale-110 transition-transform"
+            className="text-blue-800 text-4xl hover:scale-110 transition-transform"
           >
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
@@ -83,24 +80,13 @@ export default function Home() {
       >
         <motion.div
           className="flex justify-center items-center bg-purple-900 rounded-full p-2"
-          animate={{
-            y: ["0px", "20px", "0px"],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
+          animate={{ y: ["0px", "20px", "0px"] }}
+          transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
         >
           <FontAwesomeIcon
             icon={faChevronDown}
             className="text-white text-3xl cursor-pointer"
-            onClick={() => {
-              document.getElementById("sobre").scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
+            onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
           />
         </motion.div>
       </motion.div>
