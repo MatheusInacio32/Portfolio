@@ -1,12 +1,12 @@
 // src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from './pages/Home/LandingPage'; // Caminho corrigido
-import PagTest from './pages/Services/Services'; // Caminho corrigido
+import LandingPage from './pages/Home/LandingPage';
+import PagTest from './pages/Services/Services'; 
 import './styles/global.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ThemeProvider } from './contexts/ThemeContext'; // Caminho corrigido
+import { ThemeProvider } from './contexts/ThemeContext'; 
 
 function App() {
   return (

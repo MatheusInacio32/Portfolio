@@ -71,18 +71,18 @@ body {
   }
   .bg-gradient-dark {
     background: radial-gradient(circle,
-      #00143a 1%,   /* Início: Azul profundo */
-      #001e43 15%,  /* Transição 1 */
-      #00274c 29%,  /* Transição 2 */
-      #001f36 43%,  /* Transição 3 */
-      #2a2a2a 60%,  /* Cor intermediária conforme referência */
-      #282828 67%,  /* Transição 4 */
-      #252525 74%,  /* Transição 5 */
-      #171717 81%,  /* Transição 6 */
-      #111111 88%,  /* Transição 7 */
-      #000000 95%,  /* Transição 8 */
-      #000000 98%,  /* Transição 9 */
-      #000000 100%  /* Final: Preto */
+      #00143a 1%,   
+      #001e43 15%,  
+      #00274c 29%,  
+      #001f36 43%,  
+      #2a2a2a 60%,  
+      #282828 67%,  
+      #252525 74%,  
+      #171717 81%,  
+      #111111 88%,  
+      #000000 95%,  
+      #000000 98%,  
+      #000000 100%  
     );
   
     }
