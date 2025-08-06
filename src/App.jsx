@@ -6,12 +6,14 @@ import PagTest from './pages/Services/Services';
 import './styles/global.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ThemeProvider } from './contexts/ThemeContext'; 
+import { ThemeProvider } from './contexts/ThemeContext';
+import MouseBlur from './components/MouseBlur'; 
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
+        <MouseBlur />
         <Routes>  
           <Route path="/" element={<LandingPage />} />
           <Route path="/easteregg" element={<PagTest />} />

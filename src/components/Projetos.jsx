@@ -28,8 +28,8 @@ export default function Projetos() {
     },
     { 
       id: 3, 
-      nome: "Projeto Gerenciamento de Senhas", 
-      link: "https://www.youtube.com/watch?v=IB7Aa0YhYOs", 
+      nome: "Projeto Dou um Help!", 
+      link: "https://www.douumhelp.com.br", 
       imagens: [
         `${process.env.PUBLIC_URL}/assets/senha1.png`, 
         `${process.env.PUBLIC_URL}/assets/senha2.png`, 

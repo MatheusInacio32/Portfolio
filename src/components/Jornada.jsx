@@ -52,13 +52,13 @@ colaborando com a gestão de processos internos e controles financeiros.`,
     img: `${process.env.PUBLIC_URL}/assets/agro.png`,
   },
   {
-    role: "Atendente",
-    company: "J.M. Prandi – Salgados",
-    duration: "2022 – 2024",
-    description: `Gestão de pessoas e de produtos, garantindo a eficiência do atendimento 
-ao cliente e o controle de estoque de produtos. 
-Responsável pela organização da equipe e controle de produtos 
-alimentícios para manter o fluxo de trabalho.`,
+    role: "Desenvolvedor React Native",
+    company: "Dou Um Help!",
+    duration: "2023 - 2024",
+    description: `Design de interfaces para aplicativo móvel usando Figma,
+    Condução de entrevistas com usuários para identificar dores e necessidades reais,
+    Design de interfaces responsivas com foco em usabilidade e acessibilidade,
+    Implementação de testes de usabilidade e iterações baseadas em feedback dos usuários.`,
     img: `${process.env.PUBLIC_URL}/assets/koxittas.png`,
   },
 ];
