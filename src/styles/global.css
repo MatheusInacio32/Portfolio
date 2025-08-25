@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './text-shadow.css';
+
 .spotlight {
   position: fixed;
   top: 0;
