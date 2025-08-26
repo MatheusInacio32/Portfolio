@@ -23,7 +23,7 @@ export default function Skills() {
   return (
     <section 
       id="habilidades" 
-      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative
+      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative bg-surface
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >
       {/* Background decorativo otimizado */}
@@ -50,11 +50,11 @@ export default function Skills() {
             <motion.div
               key={index}
               className={`group relative flex flex-col items-center p-4 sm:p-6 rounded-2xl shadow-lg 
-                transition-all duration-200 border backdrop-blur-sm overflow-hidden
-                ${isDark 
-                  ? "bg-gray-900/20 border-gray-700/30 hover:border-indigo-400/50 hover:shadow-indigo-400/20 hover:bg-gray-900/30" 
-                  : "bg-white/70 border-gray-300 hover:border-indigo-500/70 hover:shadow-indigo-500/30 hover:bg-white/90"} 
-                cursor-pointer transform-gpu`}
+                  transition-all duration-200 border backdrop-blur-sm overflow-hidden highlight-surface
+                  ${isDark 
+                    ? "bg-gray-900/20 border-gray-700/30 hover:border-indigo-400/50 hover:shadow-indigo-400/20 hover:bg-gray-900/30" 
+                    : "bg-white/70 border-gray-300 hover:border-indigo-500/70 hover:shadow-indigo-500/30 hover:bg-white/90"} 
+                  cursor-pointer transform-gpu`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}

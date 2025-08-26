@@ -30,7 +30,7 @@ export default function Contato() {
   return (
     <section 
       id="contato" 
-      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative
+      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative bg-surface
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >
       {/* Background decorativo */}
@@ -61,7 +61,7 @@ export default function Contato() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className={`h-full p-8 rounded-2xl border backdrop-blur-sm
+            <div className={`h-full p-8 rounded-2xl border backdrop-blur-sm highlight-surface
               ${isDark 
                 ? "bg-gray-900/20 border-gray-700/30" 
                 : "bg-white/70 border-gray-200 shadow-lg shadow-gray-200/50"}`}
@@ -246,7 +246,7 @@ export default function Contato() {
               
               <button 
                 type="submit"
-                className={`flex items-center justify-center w-full py-3 px-6 rounded-lg font-medium
+                className={`flex items-center justify-center w-full py-3 px-6 rounded-lg font-medium btn
                   shadow-md transform-gpu transition-all duration-300
                   ${isDark 
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-indigo-500/25 hover:-translate-y-1" 

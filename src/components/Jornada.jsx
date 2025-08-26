@@ -77,7 +77,7 @@ export default function Jornada() {
   return (
     <section 
       id="experiência" 
-      className={`py-24 px-4 sm:px-8 transition-colors duration-300 relative
+      className={`py-24 px-4 sm:px-8 transition-colors duration-300 relative bg-surface
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >
       {/* Background decorativo */}
@@ -132,11 +132,11 @@ export default function Jornada() {
                   ease: [0.25, 0.1, 0.25, 1] // Easing suave
                 }}
               >
-                <div className={`flex flex-col md:flex-row items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+                <div className={`flex flex-col md:flex-row items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''} bg-surface`}>
                   {/* Indicador de período - layout mobile primeiro */}
                   <div className={`w-full md:w-1/2 mb-6 md:mb-0 text-center pl-0 sm:pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'} md:text-right ${index % 2 === 1 ? 'md:text-left' : ''}`}>
                     <motion.span 
-                      className={`inline-block px-4 py-2 rounded-full font-medium shadow-md
+                      className={`inline-block px-4 py-2 rounded-full font-medium shadow-md highlight-surface
                         ${isDark 
                           ? "bg-indigo-900/40 text-indigo-300 border border-indigo-700/50" 
                           : "bg-indigo-100 text-indigo-800 border border-indigo-200"

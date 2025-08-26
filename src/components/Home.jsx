@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section
       id="home"
-      className={`min-h-[110vh] flex flex-col justify-center items-center sm:items-start bg-center w-full px-4 ${
+      className={`min-h-[110vh] flex flex-col justify-center items-center sm:items-start bg-center w-full px-4 bg-surface ${
         isDark ? "text-white" : "text-black"
       }`}
       style={{
@@ -83,7 +83,7 @@ export default function Home() {
           </a>
           <a 
             href="#contato" 
-            className={`inline-block px-6 py-2 rounded-full font-medium text-sm md:text-base text-center
+            className={`inline-block px-6 py-2 rounded-full font-medium text-sm md:text-base text-center btn
               shadow-md transform-gpu transition-all duration-300
               ${isDark 
                 ? "border border-white/30 text-white hover:bg-white/10 hover:shadow-white/5 hover:scale-105" 

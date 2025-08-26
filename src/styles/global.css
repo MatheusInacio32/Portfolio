@@ -47,6 +47,66 @@ body {
   @apply bg-white bg-opacity-80;
 }
 
+/* realces específicos para o tema claro: aumentar contraste e destaque sem alterar o gradiente */
+.light {
+  --light-foreground: #0b1220; /* texto principal mais escuro */
+  --light-muted: #475569; /* texto secundário */
+  --light-accent: #6c4df5; /* tom de destaque consistente com o gradiente */
+}
+
+/* Navbar e superfícies: tornar o fundo mais opaco e o blur mais presente para destacar texto */
+.light nav,
+.light .navbar,
+.light .wtransp,
+.light .bg-surface {
+  background-color: rgba(255,255,255,0.93) !important; /* maior opacidade sem alterar o gradiente de fundo */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+  border: 1px solid rgba(16,24,40,0.04);
+}
+
+/* Links, títulos e textos importantes: cores mais escuras e sombra sutil para leitura */
+.light a,
+.light h1,
+.light h2,
+.light h3,
+.light .font-medium,
+.light .text-base {
+  color: var(--light-foreground) !important;
+}
+
+.light p,
+.light .text-small,
+.light .muted {
+  color: var(--light-muted) !important;
+}
+
+/* Botões e componentes interativos: destaque com borda sutil e sombra */
+.light .btn,
+.light .rounded-md,
+.light button {
+  background-color: rgba(255,255,255,0.96);
+  border: 1px solid rgba(16,24,40,0.06);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  color: var(--light-foreground);
+}
+
+/* Estado hover mais contrastante usando o tom de destaque ligado ao gradiente */
+.light .btn:hover,
+.light button:hover,
+.light a:hover {
+  color: var(--light-accent) !important;
+  text-decoration: none;
+}
+
+/* pequena utilidade para aplicar sobre superfícies que precisam de maior contraste */
+.light .highlight-surface {
+  background-color: rgba(255,255,255,0.98);
+  box-shadow: 0 10px 30px rgba(16,24,40,0.07);
+  border: 1px solid rgba(16,24,40,0.05);
+}
+
 /* Estilos para os botões do carrossel */
 .slick-dots li button:before {
   color: rgb(255, 255, 255) !important;

@@ -60,7 +60,7 @@ export default function Projetos() {
   return (
     <section 
       id="projetos" 
-      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative
+      className={`pt-24 px-6 sm:px-8 pb-16 transition-colors duration-300 relative bg-surface
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >
       {/* Background decorativo */}
@@ -87,7 +87,7 @@ export default function Projetos() {
           {projetos.map((projeto, index) => (
             <motion.div
               key={projeto.id}
-              className={`group relative flex flex-col rounded-2xl overflow-hidden shadow-lg border transform-gpu 
+              className={`group relative flex flex-col rounded-2xl overflow-hidden shadow-lg border transform-gpu bg-surface
                 ${isDark 
                   ? "bg-gray-900/20 border-gray-700/30 hover:shadow-indigo-500/10 hover:border-indigo-500/30" 
                   : "bg-white/70 border-gray-200 hover:shadow-indigo-500/20 hover:border-indigo-500/30"} 

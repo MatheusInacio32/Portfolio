@@ -8,26 +8,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const [scrollProgress, setScrollProgress] = useState(0); // Para transições mais suaves
+  const [scrollProgress, setScrollProgress] = useState(0);
   const { isDark, toggleTheme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
   
-  // Memoize navigation links para evitar re-renderização
   const navLinks = useMemo(() => {
     return ['Sobre', 'Habilidades', 'Experiência', 'Projetos', 'Contato'];
   }, []);
 
-  // Otimização do evento de scroll com RAF para melhor performance
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
-    
-    // Calcular progresso de scroll para transições mais suaves (0-1)
     const progress = Math.min(currentScrollY / 30, 1);
     setScrollProgress(progress);
     
-    // Atualizar estado scrolled baseado no progresso
     if (progress > 0.5 && !scrolled) {
       setScrolled(true);
     } else if (progress <= 0.5 && scrolled) {
@@ -38,7 +33,6 @@ export default function Navbar() {
     ticking.current = false;
   }, [scrolled]);
 
-  // Detectar qual seção está visível na tela com otimização
   const handleSectionVisibility = useCallback(() => {
     const sections = navLinks.map(link => 
       document.getElementById(link.toLowerCase())
@@ -48,10 +42,9 @@ export default function Navbar() {
       const viewportHeight = window.innerHeight;
       let currentSection = '';
       
-      // Otimização: usar Array.find em vez de forEach para parar quando encontrar
       const sectionInView = sections.find(section => {
         const rect = section.getBoundingClientRect();
-        const threshold = 0.3; // 30% da seção deve estar visível
+        const threshold = 0.3;
         
         return rect.top <= viewportHeight * threshold && 
                rect.bottom >= viewportHeight * (1 - threshold);
@@ -69,7 +62,6 @@ export default function Navbar() {
     }
   }, [navLinks, activeSection]);
   
-  // Otimização com requestAnimationFrame para scroll mais fluido
   useEffect(() => {
     const onScroll = () => {
       if (!ticking.current) {
@@ -83,7 +75,6 @@ export default function Navbar() {
     };
     
     window.addEventListener("scroll", onScroll, { passive: true });
-    // Checar seção visível ao carregar
     handleSectionVisibility();
     
     return () => {
@@ -91,7 +82,6 @@ export default function Navbar() {
     };
   }, [handleScroll, handleSectionVisibility]);
   
-  // Fechar menu ao clicar fora
   useEffect(() => {
     if (!isOpen) return;
     
@@ -105,18 +95,26 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
   
-  // Interpolação suave de valores para animações com tamanhos reduzidos
   const logoSize = useMemo(() => {
-    // Tamanhos reduzidos para imagem menor e mais adequada para a navbar
-    const minSize = { w: 4.5, h: 4.5, sm: { w: 1.75, h: 1.75 } };
-    const maxSize = { w: 7, h: 7, sm: { w: 1.25, h: 1.25 }, md: { w: 1.5, h: 1.5 } };
+    const isMobile = window.innerWidth < 640;
     
-    // Se prefere movimento reduzido, pular animações
+    const minSize = { 
+      w: isMobile ? 3 : 4.5, 
+      h: isMobile ? 3 : 4.5, 
+      sm: { w: 2.5, h: 2.5 } 
+    };
+    
+    const maxSize = { 
+      w: isMobile ? 4.5 : 7, 
+      h: isMobile ? 4.5 : 7, 
+      sm: { w: 3, h: 3 }, 
+      md: { w: 4, h: 4 } 
+    };
+    
     if (prefersReducedMotion) {
       return scrolled ? minSize : maxSize;
     }
     
-    // Interpolação suave entre tamanhos min e max
     return {
       w: maxSize.w - (maxSize.w - minSize.w) * scrollProgress,
       h: maxSize.h - (maxSize.h - minSize.h) * scrollProgress,
@@ -125,15 +123,14 @@ export default function Navbar() {
         h: maxSize.sm.h - (maxSize.sm.h - minSize.sm.h) * scrollProgress
       },
       md: {
-        w: maxSize.md.w - (maxSize.md.w - minSize.w) * scrollProgress,
-        h: maxSize.md.h - (maxSize.md.h - minSize.h) * scrollProgress
+        w: (maxSize.md?.w || maxSize.w) - ((maxSize.md?.w || maxSize.w) - minSize.w) * scrollProgress,
+        h: (maxSize.md?.h || maxSize.h) - ((maxSize.md?.h || maxSize.h) - minSize.h) * scrollProgress
       }
     };
   }, [scrollProgress, scrolled, prefersReducedMotion]);
   
-  // Classe de texto para títulos
   const titleClass = useMemo(() => {
-    const baseSize = scrolled ? 'text-sm sm:text-lg md:text-xl' : 'text-lg sm:text-xl md:text-2xl';
+    const baseSize = scrolled ? 'text-xs sm:text-sm md:text-lg' : 'text-sm sm:text-lg md:text-xl';
     const textColor = isDark 
       ? 'text-white text-shadow-sm shadow-black/50' 
       : scrolled ? 'text-gray-800' : 'text-gray-900 text-shadow-sm shadow-white/50';
@@ -141,29 +138,28 @@ export default function Navbar() {
     return `font-bold transition-all duration-300 ${baseSize} ${textColor}`;
   }, [scrolled, isDark]);
   
-  // Classe de fundo da navbar com transição baseada em progresso
   const navbarClass = useMemo(() => {
-    const baseClasses = "fixed w-full z-50 px-4 sm:px-6 py-3 sm:py-4 transition-all will-change-auto";
+    const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-2 sm:py-4 transition-all will-change-auto";
     
     if (prefersReducedMotion) {
-      // Versão simplificada para preferências de movimento reduzido
       return `${baseClasses} ${
         scrolled 
           ? isDark 
-            ? 'bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30' 
-            : 'bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200/50'
+            ? 'bg-gray-900/95 backdrop-blur-2xl shadow-lg border-b border-gray-800/30' 
+            : 'bg-white/95 backdrop-blur-2xl shadow-md border-b border-gray-200/50'
           : isDark 
-            ? 'bg-gray-900/20 backdrop-blur-sm' 
-            : 'bg-white/30 backdrop-blur-sm'
+            ? 'bg-gray-900/90 backdrop-blur-lg' 
+            : 'bg-white/90 backdrop-blur-lg'
       }`;
     }
-    
-    // Versão com transição suave baseada em progresso
-    const bgOpacityDark = Math.min(0.2 + scrollProgress * 0.65, 0.85).toFixed(2);
-    const bgOpacityLight = Math.min(0.3 + scrollProgress * 0.6, 0.9).toFixed(2);
-    const shadowOpacity = Math.min(scrollProgress * 0.4, 0.3).toFixed(2);
-    const borderOpacity = Math.min(scrollProgress * 0.5, 0.5).toFixed(2);
-    const blurValue = Math.round(4 + scrollProgress * 8);
+
+    // Aumentar a opacidade base e a intensidade do blur para destacar o texto
+    const bgOpacityDark = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
+    const bgOpacityLight = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
+    const shadowOpacity = Math.min(scrollProgress * 0.4, 0.35).toFixed(2);
+    const borderOpacity = Math.min(scrollProgress * 0.5, 0.6).toFixed(2);
+    // Intensidade do blur aumentada (base maior + multiplicador maior)
+    const blurValue = Math.round(14 + scrollProgress * 18);
     
     return `${baseClasses} ${
       isDark 
@@ -183,17 +179,17 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
       style={{ 
-        boxShadow: scrolled 
-          ? isDark 
-            ? '0 4px 12px rgba(0,0,0,0.2)' 
-            : '0 4px 12px rgba(0,0,0,0.1)' 
-          : 'none',
-        borderBottomWidth: scrolled ? '1px' : '0px',
-        backdropFilter: `blur(${4 + scrollProgress * 8}px)`
-      }}
+          boxShadow: scrolled 
+            ? isDark 
+              ? '0 4px 12px rgba(0,0,0,0.22)' 
+              : '0 4px 12px rgba(0,0,0,0.12)' 
+            : 'none',
+          borderBottomWidth: scrolled ? '1px' : '0px',
+          // usar o mesmo valor calculado para o blur (mais intenso para destacar o texto)
+          backdropFilter: `blur(${14 + scrollProgress * 18}px)`
+        }}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-        {/* Logo e Informações */}
         <div className="flex items-center">
           <motion.img
             src={`${process.env.PUBLIC_URL}/assets/header1.png`}
@@ -206,7 +202,7 @@ export default function Navbar() {
             style={{ 
               width: `${logoSize.w}rem`,
               height: `${logoSize.h}rem`,
-              marginRight: '0.5rem',
+              marginRight: '0.375rem',
               boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
               ['--tw-scale-x']: 1,
@@ -222,16 +218,16 @@ export default function Navbar() {
               Matheus Nunes Inácio
             </h1>
             <p 
-              className={`text-xs sm:text-sm transition-all duration-300 ${
+              className={`text-xs hidden xs:block sm:text-sm transition-all duration-300 ${
                 isDark 
                   ? 'text-gray-300' 
                   : scrolled ? 'text-gray-600' : 'text-gray-800'
               }`}
               style={{ 
-                opacity: scrolled && window.innerWidth < 400 ? 0 : 1,
-                maxHeight: scrolled && window.innerWidth < 400 ? '0px' : '20px',
+                opacity: scrolled && window.innerWidth < 480 ? 0 : 1,
+                maxHeight: scrolled && window.innerWidth < 480 ? '0px' : '20px',
                 overflow: 'hidden',
-                transform: `translateY(${scrolled && window.innerWidth < 400 ? '-10px' : '0px'})`,
+                transform: `translateY(${scrolled && window.innerWidth < 480 ? '-10px' : '0px'})`,
                 transformOrigin: 'top'
               }}
             >
@@ -240,7 +236,6 @@ export default function Navbar() {
           </div>
         </div>
         
-        {/* Links - Desktop */}
         <div className="hidden md:flex space-x-4 sm:space-x-6">
           {navLinks.map((item) => {
             const isActive = activeSection === item.toLowerCase();
@@ -278,20 +273,19 @@ export default function Navbar() {
           })}
         </div>
         
-        {/* Botão de tema e menu mobile */}
         <div className="flex items-center space-x-2 sm:space-x-4">
           <motion.button
             onClick={toggleTheme}
-            className="rounded-full transition-all duration-300 shadow-sm transform-gpu"
+            className="rounded-md transition-all duration-300 shadow-sm transform-gpu"
             style={{
-              padding: scrolled ? '0.375rem' : '0.5rem',
+              padding: '0.5rem 0.75rem',
               backgroundColor: isDark 
                 ? scrolled 
-                  ? 'rgba(31, 41, 55, 0.8)'
-                  : 'rgba(31, 41, 55, 0.7)'
+                  ? 'rgba(31, 41, 55, 0.9)'
+                  : 'rgba(31, 41, 55, 0.8)'
                 : scrolled 
-                  ? 'rgba(249, 250, 251, 0.9)'
-                  : 'rgba(255, 255, 255, 0.7)',
+                  ? 'rgba(249, 250, 251, 0.95)'
+                  : 'rgba(255, 255, 255, 0.9)',
               color: isDark ? '#FBBF24' : '#4338CA',
               border: `1px solid ${
                 isDark 
@@ -299,45 +293,51 @@ export default function Navbar() {
                   : 'rgba(229, 231, 235, 0.7)'
               }`,
               boxShadow: scrolled 
-                ? '0 1px 2px rgba(0,0,0,0.05)'
+                ? '0 1px 3px rgba(0,0,0,0.1)'
                 : '0 2px 4px rgba(0,0,0,0.1)'
             }}
             aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
-            whileHover={{ scale: 1.1, rotate: isDark ? 15 : 0 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ 
+              scale: 1.05, 
+              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
+            }}
+            whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <FontAwesomeIcon icon={isDark ? faSun : faMoon} className="text-sm sm:text-base" />
+            <FontAwesomeIcon icon={isDark ? faSun : faMoon} className="text-xs sm:text-sm" />
           </motion.button>
           
-          {/* Menu mobile trigger */}
           <motion.button 
-            className="md:hidden rounded-lg transition-all duration-300 transform-gpu"
+            className="md:hidden rounded-md transition-all duration-300 transform-gpu"
             style={{
-              padding: '0.375rem',
+              padding: '0.5rem 0.75rem',
               backgroundColor: isDark 
                 ? scrolled 
-                  ? 'rgba(31, 41, 55, 0.8)'
-                  : 'rgba(31, 41, 55, 0.7)'
+                  ? 'rgba(31, 41, 55, 0.9)'
+                  : 'rgba(31, 41, 55, 0.8)'
                 : scrolled 
-                  ? 'rgba(249, 250, 251, 0.9)'
-                  : 'rgba(255, 255, 255, 0.7)',
+                  ? 'rgba(249, 250, 251, 0.95)'
+                  : 'rgba(255, 255, 255, 0.9)',
               border: `1px solid ${
                 isDark 
                   ? 'rgba(55, 65, 81, 0.7)'
                   : 'rgba(229, 231, 235, 0.7)'
               }`,
               boxShadow: scrolled 
-                ? '0 1px 2px rgba(0,0,0,0.05)'
+                ? '0 1px 3px rgba(0,0,0,0.1)'
                 : '0 2px 4px rgba(0,0,0,0.1)'
             }}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Menu"
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ 
+              scale: 1.05, 
+              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
+            }}
+            whileTap={{ scale: 0.95 }}
           >
             <FontAwesomeIcon 
               icon={isOpen ? faXmark : faBars} 
-              className={`text-sm sm:text-base ${isDark 
+              className={`text-xs sm:text-sm ${isDark 
                 ? 'text-gray-200' 
                 : scrolled ? 'text-gray-700' : 'text-gray-900'}`} 
             />
@@ -345,11 +345,10 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Menu mobile com AnimatePresence para transições suaves */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className={`md:hidden absolute top-full left-0 w-full py-4 px-6 ${
+            className={`md:hidden absolute top-full left-0 w-full py-4 px-4 sm:px-6 ${
               isDark 
                 ? 'bg-gray-900/95 border-b border-gray-800/30' 
                 : 'bg-white/95 border-b border-gray-200/50'
@@ -372,7 +371,7 @@ export default function Navbar() {
                     key={item}
                     href={`#${item.toLowerCase()}`}
                     onClick={() => setIsOpen(false)}
-                    className={`font-medium py-3 px-4 rounded-lg transition-all duration-200 transform-gpu ${
+                    className={`font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-200 transform-gpu ${
                       isActive
                         ? isDark 
                           ? 'text-indigo-400 bg-indigo-900/30 border border-indigo-800/30' 
