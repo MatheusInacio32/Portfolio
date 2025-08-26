@@ -77,7 +77,7 @@ export default function Jornada() {
   return (
     <section 
       id="experiência" 
-      className={`py-24 px-6 sm:px-8 transition-colors duration-300 relative
+      className={`py-24 px-4 sm:px-8 transition-colors duration-300 relative
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >
       {/* Background decorativo */}
@@ -89,21 +89,31 @@ export default function Jornada() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-          ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
-          bg-clip-text text-transparent`}>
+        <motion.h2 
+          className={`text-4xl sm:text-5xl font-bold text-center mb-4 bg-gradient-to-r 
+            ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+            bg-clip-text text-transparent`}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Minha Jornada
-        </h2>
+        </motion.h2>
         
-        <p className={`text-center mb-16 text-lg max-w-3xl mx-auto
-          ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+        <motion.p 
+          className={`text-center mb-10 sm:mb-16 text-base sm:text-lg max-w-3xl mx-auto
+            ${isDark ? "text-gray-300" : "text-gray-700"}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           Experiência profissional e trajetória na área de desenvolvimento
-        </p>
+        </motion.p>
 
         <div className="relative">
           {/* Linha vertical decorativa */}
-          <div className={`absolute top-0 bottom-0 left-4 sm:left-6 md:left-1/2 w-px transform md:-translate-x-1/2 
-            ${isDark ? "bg-gradient-to-b from-indigo-500/30 via-purple-500/30 to-indigo-500/30" : "bg-gradient-to-b from-indigo-500/40 via-purple-500/40 to-indigo-500/40"}`}>
+          <div className={`absolute top-0 bottom-0 left-5 sm:left-8 md:left-1/2 w-1 sm:w-1.5 transform md:-translate-x-1/2 rounded-full
+            ${isDark ? "bg-gradient-to-b from-indigo-500/40 via-purple-500/40 to-indigo-500/40" : "bg-gradient-to-b from-indigo-500/50 via-purple-500/50 to-indigo-500/50"}`}>
           </div>
 
           {experienceData.map((exp, index) => {
@@ -116,42 +126,66 @@ export default function Jornada() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1,
+                  ease: [0.25, 0.1, 0.25, 1] // Easing suave
+                }}
               >
                 <div className={`flex flex-col md:flex-row items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                   {/* Indicador de período - layout mobile primeiro */}
-                  <div className={`w-full md:w-1/2 mb-6 md:mb-0 text-center pl-0 sm:pl-8 md:pl-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'} md:text-right ${index % 2 === 1 ? 'md:text-left' : ''}`}>
-                    <span className={`inline-block px-4 py-2 rounded-full font-medium 
-                      ${isDark 
-                        ? "bg-indigo-900/30 text-indigo-300 border border-indigo-700/40" 
-                        : "bg-indigo-100 text-indigo-800 border border-indigo-200"
-                      }`}>
+                  <div className={`w-full md:w-1/2 mb-6 md:mb-0 text-center pl-0 sm:pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'} md:text-right ${index % 2 === 1 ? 'md:text-left' : ''}`}>
+                    <motion.span 
+                      className={`inline-block px-4 py-2 rounded-full font-medium shadow-md
+                        ${isDark 
+                          ? "bg-indigo-900/40 text-indigo-300 border border-indigo-700/50" 
+                          : "bg-indigo-100 text-indigo-800 border border-indigo-200"
+                        }`}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
                       {exp.period}
-                    </span>
+                    </motion.span>
                   </div>
 
-                  {/* Círculo central - maior em mobile */}
-                  <div className="absolute left-4 sm:left-6 md:left-1/2 transform md:-translate-x-1/2 flex items-center justify-center">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-10 md:h-10 rounded-full border-4 ${
-                      isDark 
-                        ? "border-gray-900 bg-indigo-400" 
-                        : "border-white bg-indigo-600"
-                      }`}>
-                      <img 
-                        src={exp.img} 
-                        alt={exp.company} 
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    </div>
+                  {/* Correção do bug de hover que movia a imagem para a direita */}
+                  <div className="absolute left-5 sm:left-8 md:left-1/2 transform md:-translate-x-1/2 flex items-center justify-center">
+                    <motion.div 
+                      className={`w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full flex items-center justify-center border-4 shadow-lg transform-gpu
+                        ${isDark 
+                          ? "border-gray-800 shadow-indigo-600/20" 
+                          : "border-white shadow-indigo-500/30"
+                        }`}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      style={{ transformOrigin: 'center' }}  // Garante que a escala seja aplicada a partir do centro
+                    >
+                      <div className="w-full h-full rounded-full p-0.5 overflow-hidden">
+                        <img 
+                          src={exp.img} 
+                          alt={exp.company} 
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </div>
+                    </motion.div>
                   </div>
 
                   {/* Detalhes da posição */}
-                  <div className={`w-full md:w-1/2 pl-16 sm:pl-24 md:pl-0 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
-                    <div className={`p-4 sm:p-6 rounded-2xl shadow-md transition-all duration-300
-                      ${isDark 
-                        ? "bg-gray-900/30 border border-gray-700/30 hover:shadow-indigo-500/10" 
-                        : "bg-white/70 border border-gray-200 hover:shadow-indigo-500/20"
-                      }`}>
+                  <div className={`w-full md:w-1/2 pl-16 sm:pl-28 md:pl-0 ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'}`}>
+                    <motion.div 
+                      className={`p-4 sm:p-6 rounded-2xl shadow-md transition-all duration-300
+                        ${isDark 
+                          ? "bg-gray-900/30 border border-gray-700/30" 
+                          : "bg-white/80 border border-gray-200"
+                        }`}
+                      whileHover={{ 
+                        boxShadow: isDark 
+                          ? "0 4px 20px rgba(79, 70, 229, 0.1)" 
+                          : "0 4px 20px rgba(79, 70, 229, 0.15)",
+                        y: -5
+                      }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    >
                       <h3 className={`text-xl font-bold mb-1 ${isDark ? "text-indigo-400" : "text-indigo-700"}`}>
                         {exp.role}
                       </h3>
@@ -162,31 +196,42 @@ export default function Jornada() {
                       {isComplex ? (
                         <div className="ml-1 sm:ml-2 mt-4 space-y-4 sm:space-y-6">
                           {exp.positions.map((pos, idx) => (
-                            <div key={idx} className="relative pl-3 sm:pl-6 border-l-2 border-indigo-500/30">
+                            <motion.div 
+                              key={idx} 
+                              className="relative pl-3 sm:pl-6 border-l-2 border-indigo-500/30"
+                              initial={{ opacity: 0, x: -5 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.2 + idx * 0.1 }}
+                            >
                               <h4 className={`text-base sm:text-lg font-semibold ${isDark ? "text-white" : "text-gray-800"}`}>
                                 {pos.title} <span className={`font-normal text-xs sm:text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>({pos.contractType})</span>
                               </h4>
                               <p className={`text-xs sm:text-sm ${isDark ? "text-gray-400" : "text-gray-600"} mb-2`}>
                                 {pos.date}
                               </p>
-                              <ul className={`space-y-1 sm:space-y-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                              <ul className={`space-y-1.5 sm:space-y-2.5 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
                                 {pos.bullets.map((bullet, bulletIdx) => (
-                                  <li
+                                  <motion.li
                                     key={bulletIdx}
                                     className="leading-relaxed text-xs sm:text-sm"
                                     dangerouslySetInnerHTML={renderWithBold(bullet)}
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.3 + bulletIdx * 0.05 }}
                                   />
                                 ))}
                               </ul>
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
                       ) : (
-                        <p className={`text-sm sm:text-base whitespace-pre-line ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                        <p className={`text-sm sm:text-base whitespace-pre-line leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
                           {exp.description}
                         </p>
                       )}
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </motion.div>
