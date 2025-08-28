@@ -95,20 +95,19 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
   
+  // Tamanho do logo otimizado
   const logoSize = useMemo(() => {
     const isMobile = window.innerWidth < 640;
     
+    // Tamanhos reduzidos para diminuir a altura vertical
     const minSize = { 
-      w: isMobile ? 3 : 4.5, 
-      h: isMobile ? 3 : 4.5, 
-      sm: { w: 2.5, h: 2.5 } 
+      w: isMobile ? 2.8 : 3.5, 
+      h: isMobile ? 2.8 : 3.5
     };
     
     const maxSize = { 
-      w: isMobile ? 4.5 : 7, 
-      h: isMobile ? 4.5 : 7, 
-      sm: { w: 3, h: 3 }, 
-      md: { w: 4, h: 4 } 
+      w: isMobile ? 4 : 5.5, 
+      h: isMobile ? 4 : 5.5
     };
     
     if (prefersReducedMotion) {
@@ -117,20 +116,12 @@ export default function Navbar() {
     
     return {
       w: maxSize.w - (maxSize.w - minSize.w) * scrollProgress,
-      h: maxSize.h - (maxSize.h - minSize.h) * scrollProgress,
-      sm: {
-        w: maxSize.sm.w - (maxSize.sm.w - minSize.sm.w) * scrollProgress,
-        h: maxSize.sm.h - (maxSize.sm.h - minSize.sm.h) * scrollProgress
-      },
-      md: {
-        w: (maxSize.md?.w || maxSize.w) - ((maxSize.md?.w || maxSize.w) - minSize.w) * scrollProgress,
-        h: (maxSize.md?.h || maxSize.h) - ((maxSize.md?.h || maxSize.h) - minSize.h) * scrollProgress
-      }
+      h: maxSize.h - (maxSize.h - minSize.h) * scrollProgress
     };
   }, [scrollProgress, scrolled, prefersReducedMotion]);
   
   const titleClass = useMemo(() => {
-    const baseSize = scrolled ? 'text-xs sm:text-sm md:text-lg' : 'text-sm sm:text-lg md:text-xl';
+    const baseSize = scrolled ? 'text-xs sm:text-sm md:text-base' : 'text-sm sm:text-base md:text-lg';
     const textColor = isDark 
       ? 'text-white text-shadow-sm shadow-black/50' 
       : scrolled ? 'text-gray-800' : 'text-gray-900 text-shadow-sm shadow-white/50';
@@ -139,7 +130,8 @@ export default function Navbar() {
   }, [scrolled, isDark]);
   
   const navbarClass = useMemo(() => {
-    const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-2 sm:py-4 transition-all will-change-auto";
+    // Reduzindo padding vertical para diminuir a altura
+    const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-1.5 sm:py-2.5 transition-all will-change-auto";
     
     if (prefersReducedMotion) {
       return `${baseClasses} ${
@@ -153,12 +145,10 @@ export default function Navbar() {
       }`;
     }
 
-    // Aumentar a opacidade base e a intensidade do blur para destacar o texto
     const bgOpacityDark = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
     const bgOpacityLight = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
     const shadowOpacity = Math.min(scrollProgress * 0.4, 0.35).toFixed(2);
     const borderOpacity = Math.min(scrollProgress * 0.5, 0.6).toFixed(2);
-    // Intensidade do blur aumentada (base maior + multiplicador maior)
     const blurValue = Math.round(14 + scrollProgress * 18);
     
     return `${baseClasses} ${
@@ -185,7 +175,6 @@ export default function Navbar() {
               : '0 4px 12px rgba(0,0,0,0.12)' 
             : 'none',
           borderBottomWidth: scrolled ? '1px' : '0px',
-          // usar o mesmo valor calculado para o blur (mais intenso para destacar o texto)
           backdropFilter: `blur(${14 + scrollProgress * 18}px)`
         }}
     >
@@ -236,14 +225,14 @@ export default function Navbar() {
           </div>
         </div>
         
-        <div className="hidden md:flex space-x-4 sm:space-x-6">
+        <div className="hidden md:flex space-x-4 sm:space-x-5">
           {navLinks.map((item) => {
             const isActive = activeSection === item.toLowerCase();
             return (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={`font-medium px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg transition-all duration-200 transform-gpu ${
+                className={`font-medium px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg transition-all duration-200 transform-gpu ${
                   isActive
                     ? isDark 
                       ? 'text-indigo-400 bg-indigo-900/30 border border-indigo-800/30' 
@@ -273,12 +262,12 @@ export default function Navbar() {
           })}
         </div>
         
-        <div className="flex items-center space-x-2 sm:space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <motion.button
             onClick={toggleTheme}
             className="rounded-md transition-all duration-300 shadow-sm transform-gpu"
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.4rem 0.65rem',
               backgroundColor: isDark 
                 ? scrolled 
                   ? 'rgba(31, 41, 55, 0.9)'
@@ -310,7 +299,7 @@ export default function Navbar() {
           <motion.button 
             className="md:hidden rounded-md transition-all duration-300 transform-gpu"
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.4rem 0.65rem',
               backgroundColor: isDark 
                 ? scrolled 
                   ? 'rgba(31, 41, 55, 0.9)'

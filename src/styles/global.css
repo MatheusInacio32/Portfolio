@@ -159,34 +159,13 @@ body {
     }
     .bg-gradient-light {
       background: radial-gradient(circle,  
-        #c699f9 5%,  
-        #ddc7f7 20%,  
-        #d5a8ff 30%,  
-        #c88cff 40%,  
-        #a76ae0 50%,  
-        #923df3 58%,  
-        #9f3ff5 65%,  
-        #bd5aff 73%,  
-        #edd8fb 80%,  
-        #ffffff 88%,  
-        #ffffff 95%,  
+  
         #ffffff 100% 
       );
     }
     @media (max-width: 640px) {
       .bg-gradient-light {
-        background: radial-gradient(circle,  
-          #b77ffa  5%,   
-          #f8e1ff 15%,   
-          #eac5ff 25%,  
-          #dca8ff 35%,   
-          #c88cff 45%,  
-          #b76aff 55%,   
-          #ae5cff 65%,  
-          #9134fd 75%,   
-          #caaaf1 85%,  
-          #e1cfff 90%,  
-          #ffffff 95%,   
+        background: radial-gradient(circle,     
           #ffffff 100%   
         );
       }
