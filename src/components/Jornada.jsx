@@ -173,7 +173,7 @@ export default function Jornada() {
                   {/* Detalhes da posição */}
                   <div className={`w-full md:w-1/2 pl-16 sm:pl-28 md:pl-0 ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'}`}>
                     <motion.div 
-                      className={`p-4 sm:p-6 rounded-2xl shadow-md transition-all duration-300
+                      className={`p-4 sm:p-6 rounded-2xl shadow-md transition-all duration-300 timeline-item
                         ${isDark 
                           ? "bg-gray-900/30 border border-gray-700/30" 
                           : "bg-white/80 border border-gray-200"

@@ -97,24 +97,20 @@ export default function Navbar() {
   
   const logoSize = useMemo(() => {
     const isMobile = window.innerWidth < 640;
-    
     const minSize = { 
-      w: isMobile ? 3 : 4.5, 
-      h: isMobile ? 3 : 4.5, 
-      sm: { w: 2.5, h: 2.5 } 
+      w: isMobile ? 2.2 : 3.2, 
+      h: isMobile ? 2.2 : 3.2, 
+      sm: { w: 1.8, h: 1.8 } 
     };
-    
     const maxSize = { 
-      w: isMobile ? 4.5 : 7, 
-      h: isMobile ? 4.5 : 7, 
-      sm: { w: 3, h: 3 }, 
-      md: { w: 4, h: 4 } 
+      w: isMobile ? 3.2 : 4.2, 
+      h: isMobile ? 3.2 : 4.2, 
+      sm: { w: 2.4, h: 2.4 }, 
+      md: { w: 3.2, h: 3.2 } 
     };
-    
     if (prefersReducedMotion) {
       return scrolled ? minSize : maxSize;
     }
-    
     return {
       w: maxSize.w - (maxSize.w - minSize.w) * scrollProgress,
       h: maxSize.h - (maxSize.h - minSize.h) * scrollProgress,
@@ -130,51 +126,45 @@ export default function Navbar() {
   }, [scrollProgress, scrolled, prefersReducedMotion]);
   
   const titleClass = useMemo(() => {
-    const baseSize = scrolled ? 'text-xs sm:text-sm md:text-lg' : 'text-sm sm:text-lg md:text-xl';
+  const baseSize = scrolled ? 'text-[10px] sm:text-xs md:text-sm' : 'text-xs sm:text-sm md:text-lg';
     const textColor = isDark 
       ? 'text-white text-shadow-sm shadow-black/50' 
       : scrolled ? 'text-gray-800' : 'text-gray-900 text-shadow-sm shadow-white/50';
-    
     return `font-bold transition-all duration-300 ${baseSize} ${textColor}`;
   }, [scrolled, isDark]);
   
   const navbarClass = useMemo(() => {
-    const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-2 sm:py-4 transition-all will-change-auto";
-    
+  const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-2 sm:py-4 transition-all will-change-auto";
     if (prefersReducedMotion) {
       return `${baseClasses} ${
         scrolled 
           ? isDark 
             ? 'bg-gray-900/95 backdrop-blur-2xl shadow-lg border-b border-gray-800/30' 
-            : 'bg-white/95 backdrop-blur-2xl shadow-md border-b border-gray-200/50'
+            : 'bg-black/45 backdrop-blur-2xl shadow-md border-b border-gray-800/20'
           : isDark 
             ? 'bg-gray-900/90 backdrop-blur-lg' 
-            : 'bg-white/90 backdrop-blur-lg'
+            : 'bg-black/45 backdrop-blur-lg'
       }`;
     }
-
-    // Aumentar a opacidade base e a intensidade do blur para destacar o texto
-    const bgOpacityDark = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
-    const bgOpacityLight = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
-    const shadowOpacity = Math.min(scrollProgress * 0.4, 0.35).toFixed(2);
-    const borderOpacity = Math.min(scrollProgress * 0.5, 0.6).toFixed(2);
-    // Intensidade do blur aumentada (base maior + multiplicador maior)
-    const blurValue = Math.round(14 + scrollProgress * 18);
-    
+  const shadowOpacity = Math.min(scrollProgress * 0.45, 0.4).toFixed(2);
+  const borderOpacity = Math.min(scrollProgress * 0.6, 0.6).toFixed(2);
+  const lightOverlay = 0.7.toFixed(2);
+    const darkOverlay = Math.min(0.90 + scrollProgress * 0.06, 0.98).toFixed(2);
+    const blurValue = Math.round(12 + scrollProgress * 12);
     return `${baseClasses} ${
       isDark 
-        ? `bg-gray-900/${bgOpacityDark} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 20)}px_rgba(0,0,0,${shadowOpacity})] ${
+        ? `bg-gray-900/${darkOverlay} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 20)}px_rgba(0,0,0,${shadowOpacity})] ${
             scrollProgress > 0.5 ? `border-b border-gray-800/${borderOpacity}` : ''
           }`
-        : `bg-white/${bgOpacityLight} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 16)}px_rgba(0,0,0,${shadowOpacity})] ${
-            scrollProgress > 0.5 ? `border-b border-gray-200/${borderOpacity}` : ''
+  : `bg-black/${lightOverlay} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 16)}px_rgba(0,0,0,${shadowOpacity})] ${
+            scrollProgress > 0.4 ? `border-b border-gray-800/${borderOpacity}` : ''
           }`
     }`;
   }, [scrolled, isDark, scrollProgress, prefersReducedMotion]);
 
   return (
     <motion.nav
-      className={navbarClass}
+      className={`${navbarClass} ${!isDark ? 'light-nav-text' : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -186,7 +176,9 @@ export default function Navbar() {
             : 'none',
           borderBottomWidth: scrolled ? '1px' : '0px',
           // usar o mesmo valor calculado para o blur (mais intenso para destacar o texto)
-          backdropFilter: `blur(${14 + scrollProgress * 18}px)`
+          backdropFilter: `blur(${14 + scrollProgress * 18}px)`,
+          // para o tema claro usar a variável CSS --nav-overlay para controlar opacidade do overlay preto
+          backgroundColor: !isDark ? 'rgba(0,0,0,var(--nav-overlay,0.35))' : undefined
         }}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
@@ -202,9 +194,9 @@ export default function Navbar() {
             style={{ 
               width: `${logoSize.w}rem`,
               height: `${logoSize.h}rem`,
-              marginRight: '0.375rem',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-              transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              marginRight: '0.25rem',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+              transition: 'all 0.25s ease',
               ['--tw-scale-x']: 1,
               ['--tw-scale-y']: 1
             }}
@@ -213,25 +205,25 @@ export default function Navbar() {
               transition: { type: "spring", stiffness: 300 } 
             }}
           />
-          <div className="transition-all duration-300">
-            <h1 className={titleClass}>
+          <div className="transition-all duration-300 leading-tight">
+            <h1 className={titleClass} style={{ lineHeight: 1 }}>
               Matheus Nunes Inácio
             </h1>
             <p 
-              className={`text-xs hidden xs:block sm:text-sm transition-all duration-300 ${
+              className={`text-xs hidden sm:block transition-all duration-300 ${
                 isDark 
                   ? 'text-gray-300' 
                   : scrolled ? 'text-gray-600' : 'text-gray-800'
               }`}
               style={{ 
                 opacity: scrolled && window.innerWidth < 480 ? 0 : 1,
-                maxHeight: scrolled && window.innerWidth < 480 ? '0px' : '20px',
+                maxHeight: scrolled && window.innerWidth < 480 ? '0px' : '18px',
                 overflow: 'hidden',
-                transform: `translateY(${scrolled && window.innerWidth < 480 ? '-10px' : '0px'})`,
+                transform: `translateY(${scrolled && window.innerWidth < 480 ? '-8px' : '0px'})`,
                 transformOrigin: 'top'
               }}
             >
-              Desenvolvedor Full Stack
+              Desenvolvedor Front End
             </p>
           </div>
         </div>
@@ -284,22 +276,22 @@ export default function Navbar() {
                   ? 'rgba(31, 41, 55, 0.9)'
                   : 'rgba(31, 41, 55, 0.8)'
                 : scrolled 
-                  ? 'rgba(249, 250, 251, 0.95)'
-                  : 'rgba(255, 255, 255, 0.9)',
-              color: isDark ? '#FBBF24' : '#4338CA',
+                  ? 'rgba(91, 33, 182, 0.95)'
+                  : 'rgba(124, 58, 237, 0.9)',
+              color: isDark ? '#FBBF24' : '#ffffff',
               border: `1px solid ${
                 isDark 
                   ? 'rgba(55, 65, 81, 0.7)'
-                  : 'rgba(229, 231, 235, 0.7)'
+                  : 'rgba(167, 139, 250, 0.5)'
               }`,
               boxShadow: scrolled 
                 ? '0 1px 3px rgba(0,0,0,0.1)'
-                : '0 2px 4px rgba(0,0,0,0.1)'
+                : '0 2px 4px rgba(124, 58, 237, 0.15)'
             }}
             aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
             whileHover={{ 
               scale: 1.05, 
-              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
+              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(91, 33, 182, 1)'
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -316,22 +308,22 @@ export default function Navbar() {
                   ? 'rgba(31, 41, 55, 0.9)'
                   : 'rgba(31, 41, 55, 0.8)'
                 : scrolled 
-                  ? 'rgba(249, 250, 251, 0.95)'
-                  : 'rgba(255, 255, 255, 0.9)',
+                  ? 'rgba(91, 33, 182, 0.95)'
+                  : 'rgba(124, 58, 237, 0.9)',
               border: `1px solid ${
                 isDark 
                   ? 'rgba(55, 65, 81, 0.7)'
-                  : 'rgba(229, 231, 235, 0.7)'
+                  : 'rgba(167, 139, 250, 0.5)'
               }`,
               boxShadow: scrolled 
                 ? '0 1px 3px rgba(0,0,0,0.1)'
-                : '0 2px 4px rgba(0,0,0,0.1)'
+                : '0 2px 4px rgba(124, 58, 237, 0.15)'
             }}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Menu"
             whileHover={{ 
               scale: 1.05, 
-              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
+              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(91, 33, 182, 1)'
             }}
             whileTap={{ scale: 0.95 }}
           >
@@ -348,45 +340,40 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className={`md:hidden absolute top-full left-0 w-full py-4 px-4 sm:px-6 ${
+            className={`md:hidden absolute top-14 right-4 z-50 min-w-[180px] py-3 px-3 rounded-lg ${
               isDark 
-                ? 'bg-gray-900/95 border-b border-gray-800/30' 
-                : 'bg-white/95 border-b border-gray-200/50'
+                ? 'bg-gray-900/95 border border-gray-800/30 text-gray-100' 
+                : 'bg-white/95 border border-gray-200/50 text-gray-900'
             } backdrop-blur-md shadow-lg`}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, scale: 0.96, y: -6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -6 }}
             transition={{ 
-              duration: 0.2, 
-              ease: [0.25, 0.46, 0.45, 0.94],
-              staggerChildren: 0.05
+              duration: 0.16, 
+              ease: [0.25, 0.46, 0.45, 0.94]
             }}
           >
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col">
               {navLinks.map((item, index) => {
                 const isActive = activeSection === item.toLowerCase();
-                
                 return (
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
                     onClick={() => setIsOpen(false)}
-                    className={`font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-200 transform-gpu ${
+                    className={`font-medium py-1.5 px-2 rounded-md transition-colors duration-150 text-sm ${
                       isActive
                         ? isDark 
-                          ? 'text-indigo-400 bg-indigo-900/30 border border-indigo-800/30' 
-                          : 'text-indigo-700 bg-indigo-50 border border-indigo-200/50'
+                          ? 'text-indigo-400 bg-indigo-900/20' 
+                          : 'text-indigo-700 bg-indigo-50'
                         : isDark 
-                          ? 'text-gray-300 hover:text-indigo-400 hover:bg-indigo-900/20' 
-                          : 'text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/80'
+                          ? 'text-gray-300 hover:text-indigo-400 hover:bg-indigo-900/10' 
+                          : 'text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/60'
                     }`}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ 
-                      duration: 0.2,
-                      delay: index * 0.05
-                    }}
+                    exit={{ opacity: 0, x: -6 }}
+                    transition={{ duration: 0.12, delay: index * 0.03 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {item}
