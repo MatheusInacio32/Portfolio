@@ -72,8 +72,12 @@ export default function Home() {
         >
           <a
             href="#projetos" 
-            className={`inline-block px-6 py-2 rounded-full text-white font-medium text-sm md:text-base text-center btn-primary
-              shadow-lg transform-gpu transition-all duration-300 hover:scale-105`}
+            className={`inline-block px-6 py-2 rounded-full text-white font-medium text-sm md:text-base text-center
+              shadow-lg transform-gpu transition-all duration-300
+              ${isDark 
+                ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-indigo-500/40 hover:scale-105" 
+                : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-indigo-600/30 hover:scale-105"
+              }`}
           >
             Ver Projetos
           </a>

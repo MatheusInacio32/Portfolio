@@ -246,11 +246,11 @@ export default function Contato() {
               
               <button 
                 type="submit"
-                className={`flex items-center justify-center w-full py-3 px-6 rounded-lg font-medium btn-primary
+                className={`flex items-center justify-center w-full py-3 px-6 rounded-lg font-medium btn
                   shadow-md transform-gpu transition-all duration-300
                   ${isDark 
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-indigo-500/25 hover:-translate-y-1" 
-                    : "text-white hover:shadow-indigo-600/20 hover:-translate-y-1"
+                    : "bg-gradient-to-r from-indigo-700 to-purple-700 text-white hover:shadow-indigo-600/20 hover:-translate-y-1"
                   }`}
               >
                 <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />

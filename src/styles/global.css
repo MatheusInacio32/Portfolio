@@ -4,10 +4,6 @@
 
 @import './text-shadow.css';
 
-:root {
-  --nav-overlay: 0.35;
-}
-
 .spotlight {
   position: fixed;
   top: 0;
@@ -22,15 +18,14 @@
   display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @apply transition-colors duration-150;
+  @apply transition-colors duration-0;
 }
 
+/* escuro */
 .dark {
   color-scheme: dark;
 }
@@ -43,228 +38,74 @@ body {
   @apply bg-gray-800 bg-opacity-80;
 }
 
-/* Forçar texto branco para elementos da navbar em tema claro quando necessário */
-.light-nav-text {
-  color: #ffffff !important;
-}
-.light-nav-text a,
-.light-nav-text a *,
-.light-nav-text button,
-.light-nav-text span,
-.light-nav-text p,
-.light-nav-text h1,
-.light-nav-text h2,
-.light-nav-text h3,
-.light-nav-text svg {
-  color: #ffffff !important;
-  fill: currentColor !important;
+/* claro */
+.light .carrosel {
+  @apply bg-gray-200;
 }
 
-/* Tokens e estilos para o tema claro */
+.light .wtransp {
+  @apply bg-white bg-opacity-80;
+}
+
+/* realces específicos para o tema claro: aumentar contraste e destaque sem alterar o gradiente */
 .light {
-  --surface-bg: 255,255,255;
-  --surface-tilt: 250,247,255;
-  --fg: #0b1220;
-  --muted: #5b6b7a;
-  --accent: #5b21b6;
-  --accent-strong: #7c3aed;
-  --border: 16,24,40;
-  --card-shadow: 16,24,40;
-  --surface-elev-1: 0.96;
-  --surface-elev-2: 0.98;
-  --nav-overlay: 0.35;
+  --light-foreground: #0b1220; /* texto principal mais escuro */
+  --light-muted: #475569; /* texto secundário */
+  --light-accent: #6c4df5; /* tom de destaque consistente com o gradiente */
 }
 
+/* Navbar e superfícies: tornar o fundo mais opaco e o blur mais presente para destacar texto */
 .light nav,
 .light .navbar,
 .light .wtransp,
 .light .bg-surface {
-  background-color: rgba(var(--surface-bg), var(--surface-elev-1)) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(118%);
-  backdrop-filter: blur(10px) saturate(118%);
-  box-shadow: 0 8px 24px rgba(var(--card-shadow), 0.06);
-  border: 1px solid rgba(var(--border), 0.06);
+  background-color: rgba(255,255,255,0.93) !important; /* maior opacidade sem alterar o gradiente de fundo */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+  border: 1px solid rgba(16,24,40,0.04);
 }
 
+/* Links, títulos e textos importantes: cores mais escuras e sombra sutil para leitura */
 .light a,
 .light h1,
 .light h2,
 .light h3,
 .light .font-medium,
 .light .text-base {
-  color: var(--fg) !important;
+  color: var(--light-foreground) !important;
 }
 
 .light p,
 .light .text-small,
 .light .muted {
-  color: var(--muted) !important;
+  color: var(--light-muted) !important;
 }
 
+/* Botões e componentes interativos: destaque com borda sutil e sombra */
 .light .btn,
 .light .rounded-md,
 .light button {
-  background-color: rgba(var(--surface-tilt), var(--surface-elev-2));
-  border: 1px solid rgba(var(--border), 0.08);
-  box-shadow: 0 6px 18px rgba(var(--card-shadow), 0.08);
-  color: var(--fg);
+  background-color: rgba(255,255,255,0.96);
+  border: 1px solid rgba(16,24,40,0.06);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  color: var(--light-foreground);
 }
 
-.light .btn-primary,
-.light button.primary,
-.light button[type="submit"],
-.light .btn.primary {
-  background: linear-gradient(180deg, var(--accent-strong), var(--accent)) !important;
-  color: #fff !important;
-  border: 1px solid rgba(88, 24, 163, 0.15);
-  box-shadow: 0 8px 20px rgba(92, 33, 182, 0.15);
-}
-
+/* Estado hover mais contrastante usando o tom de destaque ligado ao gradiente */
 .light .btn:hover,
 .light button:hover,
 .light a:hover {
-  color: var(--accent-strong) !important;
+  color: var(--light-accent) !important;
   text-decoration: none;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(var(--card-shadow), 0.12);
 }
 
-.light .btn-primary:hover,
-.light button.primary:hover,
-.light button[type="submit"]:hover {
-  background: linear-gradient(180deg, #8b5cf6, var(--accent-strong)) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(92, 33, 182, 0.25);
-}
-
+/* pequena utilidade para aplicar sobre superfícies que precisam de maior contraste */
 .light .highlight-surface {
-  background-color: rgba(var(--surface-bg), var(--surface-elev-2));
-  box-shadow: 0 12px 34px rgba(var(--card-shadow), 0.08);
-  border: 1px solid rgba(var(--border), 0.07);
-  margin-bottom: 0.75rem;
+  background-color: rgba(255,255,255,0.98);
+  box-shadow: 0 10px 30px rgba(16,24,40,0.07);
+  border: 1px solid rgba(16,24,40,0.05);
 }
-
-/* Ajustes para cards e timeline no tema claro */
-.light .timeline-item,
-.light .card,
-.light .project-card {
-  background-color: rgba(var(--surface-bg), var(--surface-elev-1)) !important;
-  border: 1px solid rgba(var(--border), 0.08);
-  box-shadow: 0 6px 20px rgba(var(--card-shadow), 0.06);
-  margin-bottom: 1rem;
-  border-radius: 0.75rem;
-}
-
-.light .timeline-item:hover,
-.light .card:hover,
-.light .project-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(var(--card-shadow), 0.12);
-  border-color: rgba(var(--accent), 0.15);
-}
-
-/* Mobile adjustments para tema claro */
-@media (max-width: 768px) {
-  .light .btn,
-  .light button {
-    background-color: rgba(var(--accent-strong), 0.95) !important;
-    color: #fff !important;
-    border: 1px solid rgba(88, 24, 163, 0.2);
-    font-weight: 500;
-  }
-  
-  .light .bg-surface {
-    background-color: rgba(var(--surface-bg), 0.98) !important;
-    backdrop-filter: blur(8px);
-  }
-}
-
-/* Slick dots */
-.slick-dots li button:before {
-  color: rgb(255, 255, 255) !important;
-  opacity: 0.75 !important;
-}
-
-.slick-dots li.slick-active button:before {
-  color: rgb(98, 0, 255) !important;
-  opacity: 1 !important;
-}
-
-@media (max-width: 1466px) {
-  #home {
-    background-size: cover !important;
-    background-position: center center !important;
-  }
-}
-
-/* Fundo & Gradientes */
-@layer utilities {
-  .purple-navbar{
-    background-color: #430063c0;
-  }
-  .SombraB{
-    text-shadow: 2px 2px 10px rgb(0, 0, 0);
-  }
-  .SombraL{
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.655);
-  }
-  .text-shadow-none{
-    text-shadow: none;
-  }
-  .bg-gradient-dark {
-    background: radial-gradient(circle,
-      #00143a 1%,
-      #001e43 15%,
-      #00274c 29%,
-      #001f36 43%,
-      #2a2a2a 60%,
-      #282828 67%,
-      #252525 74%,
-      #171717 81%,
-      #111111 88%,
-      #000000 95%,
-      #000000 98%,
-      #000000 100%
-    );
-  }
-  .bg-gradient-light {
-    background: radial-gradient(circle at 22% 18%,
-      rgba(67,0,100,0.88) 0%,
-      rgba(124,58,237,0.68) 14%,
-      rgba(168,85,247,0.55) 28%,
-      rgba(200,120,255,0.42) 42%,
-      rgba(230,200,255,0.22) 60%,
-      rgba(250,245,255,0.9) 82%,
-      rgba(255,255,255,1) 100%
-    );
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  @media (max-width: 640px) {
-    .bg-gradient-light {
-      background: radial-gradient(circle at 30% 16%,
-        rgba(93,12,140,0.82) 0%,
-        rgba(168,85,247,0.55) 28%,
-        rgba(220,170,255,0.25) 56%,
-        rgba(255,255,255,0.95) 90%,
-        rgba(255,255,255,1) 100%
-      );
-    }
-  }
-  @media (min-width: 1200px) {
-    .bg-gradient-light {
-      background: radial-gradient(circle at 18% 22%,
-        rgba(56,2,120,0.92) 0%,
-        rgba(112,54,230,0.72) 12%,
-        rgba(170,95,250,0.5) 30%,
-        rgba(220,190,255,0.18) 55%,
-        rgba(255,255,255,0.98) 88%,
-        rgba(255,255,255,1) 100%
-      );
-    }
-  }
-}
-
 
 /* Estilos para os botões do carrossel */
 .slick-dots li button:before {
@@ -317,40 +158,36 @@ body {
   
     }
     .bg-gradient-light {
-      background: radial-gradient(circle at 22% 18%,
-        rgba(67,0,100,0.88) 0%,
-        rgba(124,58,237,0.68) 14%,
-        rgba(168,85,247,0.55) 28%,
-        rgba(200,120,255,0.42) 42%,
-        rgba(230,200,255,0.22) 60%,
-        rgba(250,245,255,0.9) 82%,
-        rgba(255,255,255,1) 100%
+      background: radial-gradient(circle,  
+        #c699f9 5%,  
+        #ddc7f7 20%,  
+        #d5a8ff 30%,  
+        #c88cff 40%,  
+        #a76ae0 50%,  
+        #923df3 58%,  
+        #9f3ff5 65%,  
+        #bd5aff 73%,  
+        #edd8fb 80%,  
+        #ffffff 88%,  
+        #ffffff 95%,  
+        #ffffff 100% 
       );
-      background-repeat: no-repeat;
-      background-size: cover;
     }
-
     @media (max-width: 640px) {
       .bg-gradient-light {
-        background: radial-gradient(circle at 30% 16%,
-          rgba(93,12,140,0.82) 0%,
-          rgba(168,85,247,0.55) 28%,
-          rgba(220,170,255,0.25) 56%,
-          rgba(255,255,255,0.95) 90%,
-          rgba(255,255,255,1) 100%
-        );
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .bg-gradient-light {
-        background: radial-gradient(circle at 18% 22%,
-          rgba(56,2,120,0.92) 0%,
-          rgba(112,54,230,0.72) 12%,
-          rgba(170,95,250,0.5) 30%,
-          rgba(220,190,255,0.18) 55%,
-          rgba(255,255,255,0.98) 88%,
-          rgba(255,255,255,1) 100%
+        background: radial-gradient(circle,  
+          #b77ffa  5%,   
+          #f8e1ff 15%,   
+          #eac5ff 25%,  
+          #dca8ff 35%,   
+          #c88cff 45%,  
+          #b76aff 55%,   
+          #ae5cff 65%,  
+          #9134fd 75%,   
+          #caaaf1 85%,  
+          #e1cfff 90%,  
+          #ffffff 95%,   
+          #ffffff 100%   
         );
       }
     }
