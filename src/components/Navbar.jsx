@@ -15,7 +15,7 @@ export default function Navbar() {
   const ticking = useRef(false);
   
   const navLinks = useMemo(() => {
-    return ['Sobre', 'Habilidades', 'Experiência', 'Projetos', 'Contato'];
+    return ['Sobre', 'Habilidades', 'Experiência', 'Formação', 'Projetos', 'Contato'];
   }, []);
 
   const handleScroll = useCallback(() => {

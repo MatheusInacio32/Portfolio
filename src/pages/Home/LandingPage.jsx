@@ -6,6 +6,7 @@ import Jornada from '../../components/Jornada';
 import Projetos from '../../components/Projetos'; 
 import Contato from '../../components/Contato'; 
 import Talento from '../../components/Talento'; 
+import Formacao from '../../components/Formacao';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -23,8 +24,9 @@ const LandingPage = () => {
       <Navbar  />
       <Homebar />
       <Sobremim/>
-      <Talento />
       <Jornada />
+      <Formacao />
+      <Talento />
       <Projetos/>
       <Contato />
     </div>
