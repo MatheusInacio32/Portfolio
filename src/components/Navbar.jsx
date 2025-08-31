@@ -3,17 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faSun, 
-  faMoon, 
-  faBars, 
-  faXmark, 
-  faHome,
-  faUser,
-  faRoad,
-  faGraduationCap,
-  faCode,
-  faBriefcase,
-  faEnvelope
+  faSun, faMoon, faBars, faXmark, faHome,
+  faUser, faRoad, faGraduationCap, faCode,
+  faBriefcase, faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
@@ -24,7 +16,6 @@ export default function Navbar() {
   const navbarRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
-  // Define as seções de navegação com seus ícones
   const navSections = [
     { id: 'home', label: 'Home', icon: faHome },
     { id: 'sobre', label: 'Sobre', icon: faUser },
@@ -35,25 +26,21 @@ export default function Navbar() {
     { id: 'contato', label: 'Contato', icon: faEnvelope }
   ];
 
-  // Monitora a posição de scroll e determina a seção ativa
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
       
-      // Determina seção ativa
       const sections = navSections.map(section => ({
         id: section.id,
         element: document.getElementById(section.id)
       })).filter(item => item.element);
       
       if (sections.length) {
-        // Está no topo da página - ativa a seção Home
         if (window.scrollY < 100) {
           setActiveSection('home');
           return;
         }
         
-        // Verifica qual seção está visível
         for (let i = sections.length - 1; i >= 0; i--) {
           const section = sections[i];
           const rect = section.element.getBoundingClientRect();
@@ -67,14 +54,11 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Executa uma vez ao carregar para definir a seção inicial
+    handleScroll();
     
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fecha o menu ao clicar fora dele
   useEffect(() => {
     if (!isOpen) return;
     
@@ -89,7 +73,11 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
 
-  // Define classes dinâmicas baseadas no tema e scroll
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   const getNavbarClasses = () => {
     const isScrolled = scrollPosition > 50;
     
@@ -97,19 +85,12 @@ export default function Navbar() {
     const themeBg = isDark 
       ? isScrolled ? "bg-gray-900/95" : "bg-gray-900/60"
       : isScrolled ? "wtransp" : "bg-white/60";
-    
-    const shadowBorder = isScrolled
-      ? isDark 
-        ? "shadow-md" 
-        : "shadow-md"
-      : "";
-      
+    const shadowBorder = isScrolled ? "shadow-md" : "";
     const blurEffect = "backdrop-blur-lg";
     
     return `${baseClasses} ${themeBg} ${shadowBorder} ${blurEffect}`;
   };
 
-  // Estilo inline para a linha de gradiente animada
   const gradientLineStyle = {
     position: 'absolute',
     bottom: 0,
@@ -127,6 +108,33 @@ export default function Navbar() {
       ? '0 1px 2px rgba(79, 70, 229, 0.3)'
       : '0 1px 3px rgba(99, 102, 241, 0.4)'
   };
+
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.2, ease: "easeInOut" }
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+        staggerChildren: 0.07,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: -20 },
+    open: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1.0] }
+    }
+  };
   
   return (
     <>
@@ -137,46 +145,39 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        {/* Linha de gradiente animada */}
         <div style={gradientLineStyle} />
         
-        {/* Estilos da animação */}
         <style jsx>{`
           @keyframes gradientMove {
-            0% {
-              background-position: 0% 0%;
-            }
-            100% {
-              background-position: -200% 0%;
-            }
+            0% { background-position: 0% 0%; }
+            100% { background-position: -200% 0%; }
           }
         `}</style>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo e Nome */}
             <motion.div 
-              className="flex items-center space-x-3"
+              className="flex items-center"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <a href="#home" className="flex items-center space-x-3">
+              <a href="#home" className="flex items-center gap-1.5 sm:gap-3">
                 <motion.img 
                   src={`${process.env.PUBLIC_URL}/assets/header1.png`}
                   alt="Matheus Nunes Inácio"
-                  className={`h-14 w-14 rounded-full object-cover ring-2 ${
+                  className={`h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-full object-cover ring-2 ${
                     isDark ? 'ring-indigo-500/70' : 'ring-indigo-400/70'
-                  } ring-offset-2 ring-offset-transparent shadow-lg`}
+                  } ring-offset-1 sm:ring-offset-2 ring-offset-transparent shadow-lg`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.2 }}
                   whileHover={{ scale: 1.05 }}
                 />
                 <div>
-                  <h1 className={`font-medium text-lg tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                  <h1 className={`font-medium text-xs sm:text-sm md:text-base lg:text-lg whitespace-nowrap tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>
                     Matheus Nunes Inácio
                   </h1>
-                  <p className={`text-xs hidden xs:block ${
+                  <p className={`text-2xs sm:text-xs hidden xs:block ${
                     isDark ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     Desenvolvedor Full Stack
@@ -185,7 +186,6 @@ export default function Navbar() {
               </a>
             </motion.div>
 
-            {/* Menu Desktop */}
             <div className="hidden md:flex md:items-center md:space-x-1">
               <div className={`rounded-full p-1.5 ${
                 isDark ? 'bg-gray-800/60' : 'bg-gray-100/60'
@@ -218,12 +218,10 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Botões à direita */}
             <div className="flex items-center">
-              {/* Botão de tema */}
               <motion.button
                 onClick={toggleTheme}
-                className={`p-3 rounded-full mr-3 transition-all ${
+                className={`p-2 sm:p-2.5 md:p-3 rounded-full mr-1.5 sm:mr-2 md:mr-3 transition-all ${
                   isDark 
                     ? 'bg-gray-800/80 text-yellow-300 hover:bg-gray-700/90 shadow-md shadow-gray-900/20' 
                     : 'bg-indigo-100/90 text-indigo-600 hover:bg-indigo-200/90 shadow-md shadow-indigo-300/20'
@@ -232,14 +230,13 @@ export default function Navbar() {
                 whileTap={{ scale: 0.9 }}
                 aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
               >
-                <FontAwesomeIcon icon={isDark ? faSun : faMoon} size="lg" />
+                <FontAwesomeIcon icon={isDark ? faSun : faMoon} className="text-sm sm:text-base md:text-lg" />
               </motion.button>
 
-              {/* Menu Mobile */}
               <div className="flex md:hidden">
                 <motion.button
                   onClick={() => setIsOpen(!isOpen)}
-                  className={`p-3 rounded-full ${
+                  className={`p-2 sm:p-2.5 md:p-3 rounded-full ${
                     isDark 
                       ? 'bg-gray-800/80 text-white hover:bg-gray-700/90 shadow-md shadow-gray-900/20' 
                       : 'bg-indigo-100/90 text-indigo-700 hover:bg-indigo-200/90 shadow-md shadow-indigo-300/20'
@@ -248,17 +245,35 @@ export default function Navbar() {
                   aria-expanded={isOpen}
                   aria-label="Menu Principal"
                 >
-                  <FontAwesomeIcon 
-                    icon={isOpen ? faXmark : faBars} 
-                    className="h-5 w-5" 
-                  />
+                  <AnimatePresence mode="wait">
+                    {isOpen ? (
+                      <motion.div
+                        key="close"
+                        initial={{ opacity: 0, rotate: -90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: 90 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <FontAwesomeIcon icon={faXmark} className="text-sm sm:text-base md:text-lg" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="menu"
+                        initial={{ opacity: 0, rotate: 90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: -90 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <FontAwesomeIcon icon={faBars} className="text-sm sm:text-base md:text-lg" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Menu Mobile Dropdown */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -268,13 +283,18 @@ export default function Navbar() {
               } backdrop-blur-lg shadow-lg z-50 border-t ${
                 isDark ? 'border-gray-800' : 'border-gray-200'
               }`}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
             >
-              <div className="px-3 pt-2 pb-3 space-y-2">
-                {navSections.map((section, index) => (
+              <motion.div 
+                className="px-3 pt-2 pb-3 space-y-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+              >
+                {navSections.map((section) => (
                   <motion.a
                     key={section.id}
                     href={`#${section.id}`}
@@ -291,9 +311,8 @@ export default function Navbar() {
                       setActiveSection(section.id);
                       setIsOpen(false);
                     }}
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.03, x: 5 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <FontAwesomeIcon 
@@ -308,7 +327,7 @@ export default function Navbar() {
                     <span className="font-medium">{section.label}</span>
                   </motion.a>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
