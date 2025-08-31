@@ -1,92 +1,86 @@
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { useTheme } from "../contexts/ThemeContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun, faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSun, 
+  faMoon, 
+  faBars, 
+  faXmark, 
+  faHome,
+  faUser,
+  faRoad,
+  faGraduationCap,
+  faCode,
+  faBriefcase,
+  faEnvelope
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
-  const [scrollProgress, setScrollProgress] = useState(0);
   const { isDark, toggleTheme } = useTheme();
-  const prefersReducedMotion = useReducedMotion();
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
-  
-  const navLinks = useMemo(() => {
-    return ['Sobre', 'Habilidades', 'Experiência', 'Formação', 'Projetos', 'Contato'];
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const navbarRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    const progress = Math.min(currentScrollY / 30, 1);
-    setScrollProgress(progress);
-    
-    if (progress > 0.5 && !scrolled) {
-      setScrolled(true);
-    } else if (progress <= 0.5 && scrolled) {
-      setScrolled(false);
-    }
-    
-    lastScrollY.current = currentScrollY;
-    ticking.current = false;
-  }, [scrolled]);
+  // Define as seções de navegação com seus ícones
+  const navSections = [
+    { id: 'home', label: 'Home', icon: faHome },
+    { id: 'sobre', label: 'Sobre', icon: faUser },
+    { id: 'jornada', label: 'Jornada', icon: faRoad },
+    { id: 'formacao', label: 'Formação', icon: faGraduationCap },
+    { id: 'habilidades', label: 'Habilidades', icon: faCode },
+    { id: 'projetos', label: 'Projetos', icon: faBriefcase },
+    { id: 'contato', label: 'Contato', icon: faEnvelope }
+  ];
 
-  const handleSectionVisibility = useCallback(() => {
-    const sections = navLinks.map(link => 
-      document.getElementById(link.toLowerCase())
-    ).filter(Boolean);
-    
-    if (sections.length) {
-      const viewportHeight = window.innerHeight;
-      let currentSection = '';
-      
-      const sectionInView = sections.find(section => {
-        const rect = section.getBoundingClientRect();
-        const threshold = 0.3;
-        
-        return rect.top <= viewportHeight * threshold && 
-               rect.bottom >= viewportHeight * (1 - threshold);
-      });
-      
-      if (sectionInView) {
-        currentSection = sectionInView.id;
-      } else if (window.scrollY < 100) {
-        currentSection = 'home';
-      }
-      
-      if (currentSection !== activeSection) {
-        setActiveSection(currentSection);
-      }
-    }
-  }, [navLinks, activeSection]);
-  
+  // Monitora a posição de scroll e determina a seção ativa
   useEffect(() => {
-    const onScroll = () => {
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          handleSectionVisibility();
-          ticking.current = false;
-        });
-        ticking.current = true;
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+      
+      // Determina seção ativa
+      const sections = navSections.map(section => ({
+        id: section.id,
+        element: document.getElementById(section.id)
+      })).filter(item => item.element);
+      
+      if (sections.length) {
+        // Está no topo da página - ativa a seção Home
+        if (window.scrollY < 100) {
+          setActiveSection('home');
+          return;
+        }
+        
+        // Verifica qual seção está visível
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i];
+          const rect = section.element.getBoundingClientRect();
+          
+          if (rect.top <= window.innerHeight / 3) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
       }
     };
-    
-    window.addEventListener("scroll", onScroll, { passive: true });
-    handleSectionVisibility();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Executa uma vez ao carregar para definir a seção inicial
     
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [handleScroll, handleSectionVisibility]);
-  
+  }, []);
+
+  // Fecha o menu ao clicar fora dele
   useEffect(() => {
     if (!isOpen) return;
     
     const handleClickOutside = (e) => {
-      if (isOpen && !e.target.closest('nav')) {
+      if (isOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(e.target) && 
+          !navbarRef.current.contains(e.target)) {
         setIsOpen(false);
       }
     };
@@ -94,298 +88,231 @@ export default function Navbar() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
-  
-  // Tamanho do logo otimizado
-  const logoSize = useMemo(() => {
-    const isMobile = window.innerWidth < 640;
-    
-    // Tamanhos reduzidos para diminuir a altura vertical
-    const minSize = { 
-      w: isMobile ? 2.8 : 3.5, 
-      h: isMobile ? 2.8 : 3.5
-    };
-    
-    const maxSize = { 
-      w: isMobile ? 4 : 5.5, 
-      h: isMobile ? 4 : 5.5
-    };
-    
-    if (prefersReducedMotion) {
-      return scrolled ? minSize : maxSize;
-    }
-    
-    return {
-      w: maxSize.w - (maxSize.w - minSize.w) * scrollProgress,
-      h: maxSize.h - (maxSize.h - minSize.h) * scrollProgress
-    };
-  }, [scrollProgress, scrolled, prefersReducedMotion]);
-  
-  const titleClass = useMemo(() => {
-    const baseSize = scrolled ? 'text-xs sm:text-sm md:text-base' : 'text-sm sm:text-base md:text-lg';
-    const textColor = isDark 
-      ? 'text-white text-shadow-sm shadow-black/50' 
-      : scrolled ? 'text-gray-800' : 'text-gray-900 text-shadow-sm shadow-white/50';
-    
-    return `font-bold transition-all duration-300 ${baseSize} ${textColor}`;
-  }, [scrolled, isDark]);
-  
-  const navbarClass = useMemo(() => {
-    // Reduzindo padding vertical para diminuir a altura
-    const baseClasses = "fixed w-full z-50 px-3 sm:px-6 py-1.5 sm:py-2.5 transition-all will-change-auto";
-    
-    if (prefersReducedMotion) {
-      return `${baseClasses} ${
-        scrolled 
-          ? isDark 
-            ? 'bg-gray-900/95 backdrop-blur-2xl shadow-lg border-b border-gray-800/30' 
-            : 'bg-white/95 backdrop-blur-2xl shadow-md border-b border-gray-200/50'
-          : isDark 
-            ? 'bg-gray-900/90 backdrop-blur-lg' 
-            : 'bg-white/90 backdrop-blur-lg'
-      }`;
-    }
 
-    const bgOpacityDark = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
-    const bgOpacityLight = Math.min(0.90 + scrollProgress * 0.08, 0.98).toFixed(2);
-    const shadowOpacity = Math.min(scrollProgress * 0.4, 0.35).toFixed(2);
-    const borderOpacity = Math.min(scrollProgress * 0.5, 0.6).toFixed(2);
-    const blurValue = Math.round(14 + scrollProgress * 18);
+  // Define classes dinâmicas baseadas no tema e scroll
+  const getNavbarClasses = () => {
+    const isScrolled = scrollPosition > 50;
     
-    return `${baseClasses} ${
-      isDark 
-        ? `bg-gray-900/${bgOpacityDark} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 20)}px_rgba(0,0,0,${shadowOpacity})] ${
-            scrollProgress > 0.5 ? `border-b border-gray-800/${borderOpacity}` : ''
-          }`
-        : `bg-white/${bgOpacityLight} backdrop-blur-[${blurValue}px] shadow-[0_4px_${Math.round(scrollProgress * 16)}px_rgba(0,0,0,${shadowOpacity})] ${
-            scrollProgress > 0.5 ? `border-b border-gray-200/${borderOpacity}` : ''
-          }`
-    }`;
-  }, [scrolled, isDark, scrollProgress, prefersReducedMotion]);
+    const baseClasses = "fixed w-full top-0 z-[100] transition-all duration-300";
+    const themeBg = isDark 
+      ? isScrolled ? "bg-gray-900/95" : "bg-gray-900/60"
+      : isScrolled ? "wtransp" : "bg-white/60";
+    
+    const shadowBorder = isScrolled
+      ? isDark 
+        ? "shadow-md" 
+        : "shadow-md"
+      : "";
+      
+    const blurEffect = "backdrop-blur-lg";
+    
+    return `${baseClasses} ${themeBg} ${shadowBorder} ${blurEffect}`;
+  };
 
+  // Estilo inline para a linha de gradiente animada
+  const gradientLineStyle = {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '2px',
+    background: isDark 
+      ? 'linear-gradient(90deg, #4f46e5, #7c3aed, #8b5cf6, #6366f1, #4f46e5)'
+      : 'linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa, #7c3aed, #6366f1)',
+    backgroundSize: '200% 100%',
+    transform: 'translateY(100%)',
+    animation: 'gradientMove 3s linear infinite',
+    opacity: '0.85',
+    boxShadow: isDark
+      ? '0 1px 2px rgba(79, 70, 229, 0.3)'
+      : '0 1px 3px rgba(99, 102, 241, 0.4)'
+  };
+  
   return (
-    <motion.nav
-      className={navbarClass}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={{ 
-          boxShadow: scrolled 
-            ? isDark 
-              ? '0 4px 12px rgba(0,0,0,0.22)' 
-              : '0 4px 12px rgba(0,0,0,0.12)' 
-            : 'none',
-          borderBottomWidth: scrolled ? '1px' : '0px',
-          backdropFilter: `blur(${14 + scrollProgress * 18}px)`
-        }}
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-        <div className="flex items-center">
-          <motion.img
-            src={`${process.env.PUBLIC_URL}/assets/header1.png`}
-            alt="Matheus Nunes Inácio"
-            className={`rounded-full transform-gpu ${
-              isDark 
-                ? 'border-2 border-gray-800 hover:border-indigo-600/50' 
-                : 'border-2 border-gray-100 hover:border-indigo-500/30'
-              }`}
-            style={{ 
-              width: `${logoSize.w}rem`,
-              height: `${logoSize.h}rem`,
-              marginRight: '0.375rem',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-              transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              ['--tw-scale-x']: 1,
-              ['--tw-scale-y']: 1
-            }}
-            whileHover={{ 
-              scale: 1.05, 
-              transition: { type: "spring", stiffness: 300 } 
-            }}
-          />
-          <div className="transition-all duration-300">
-            <h1 className={titleClass}>
-              Matheus Nunes Inácio
-            </h1>
-            <p 
-              className={`text-xs hidden xs:block sm:text-sm transition-all duration-300 ${
-                isDark 
-                  ? 'text-gray-300' 
-                  : scrolled ? 'text-gray-600' : 'text-gray-800'
-              }`}
-              style={{ 
-                opacity: scrolled && window.innerWidth < 480 ? 0 : 1,
-                maxHeight: scrolled && window.innerWidth < 480 ? '0px' : '20px',
-                overflow: 'hidden',
-                transform: `translateY(${scrolled && window.innerWidth < 480 ? '-10px' : '0px'})`,
-                transformOrigin: 'top'
-              }}
+    <>
+      <motion.nav 
+        ref={navbarRef}
+        className={getNavbarClasses()}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        {/* Linha de gradiente animada */}
+        <div style={gradientLineStyle} />
+        
+        {/* Estilos da animação */}
+        <style jsx>{`
+          @keyframes gradientMove {
+            0% {
+              background-position: 0% 0%;
+            }
+            100% {
+              background-position: -200% 0%;
+            }
+          }
+        `}</style>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo e Nome */}
+            <motion.div 
+              className="flex items-center space-x-3"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Desenvolvedor Full Stack
-            </p>
+              <a href="#home" className="flex items-center space-x-3">
+                <motion.img 
+                  src={`${process.env.PUBLIC_URL}/assets/header1.png`}
+                  alt="Matheus Nunes Inácio"
+                  className={`h-14 w-14 rounded-full object-cover ring-2 ${
+                    isDark ? 'ring-indigo-500/70' : 'ring-indigo-400/70'
+                  } ring-offset-2 ring-offset-transparent shadow-lg`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ scale: 1.05 }}
+                />
+                <div>
+                  <h1 className={`font-medium text-lg tracking-wide ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                    Matheus Nunes Inácio
+                  </h1>
+                  <p className={`text-xs hidden xs:block ${
+                    isDark ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    Desenvolvedor Full Stack
+                  </p>
+                </div>
+              </a>
+            </motion.div>
+
+            {/* Menu Desktop */}
+            <div className="hidden md:flex md:items-center md:space-x-1">
+              <div className={`rounded-full p-1.5 ${
+                isDark ? 'bg-gray-800/60' : 'bg-gray-100/60'
+              }`}>
+                {navSections.map((section) => (
+                  <motion.a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className={`relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-full transition-all ${
+                      activeSection === section.id
+                        ? isDark 
+                          ? 'text-white bg-indigo-600 shadow-md shadow-indigo-500/30'
+                          : 'text-indigo-800 bg-indigo-100 shadow-md shadow-indigo-300/30'
+                        : isDark
+                          ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                          : 'text-gray-700 hover:text-indigo-700 hover:bg-gray-100'
+                    }`}
+                    onClick={() => setActiveSection(section.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <FontAwesomeIcon 
+                      icon={section.icon} 
+                      className={`mr-1.5 ${section.id === activeSection ? 'text-sm' : 'text-xs'}`} 
+                    />
+                    <span>{section.label}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
+            {/* Botões à direita */}
+            <div className="flex items-center">
+              {/* Botão de tema */}
+              <motion.button
+                onClick={toggleTheme}
+                className={`p-3 rounded-full mr-3 transition-all ${
+                  isDark 
+                    ? 'bg-gray-800/80 text-yellow-300 hover:bg-gray-700/90 shadow-md shadow-gray-900/20' 
+                    : 'bg-indigo-100/90 text-indigo-600 hover:bg-indigo-200/90 shadow-md shadow-indigo-300/20'
+                } backdrop-blur-sm`}
+                whileHover={{ scale: 1.1, rotate: 15 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
+              >
+                <FontAwesomeIcon icon={isDark ? faSun : faMoon} size="lg" />
+              </motion.button>
+
+              {/* Menu Mobile */}
+              <div className="flex md:hidden">
+                <motion.button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className={`p-3 rounded-full ${
+                    isDark 
+                      ? 'bg-gray-800/80 text-white hover:bg-gray-700/90 shadow-md shadow-gray-900/20' 
+                      : 'bg-indigo-100/90 text-indigo-700 hover:bg-indigo-200/90 shadow-md shadow-indigo-300/20'
+                  } backdrop-blur-sm`}
+                  whileTap={{ scale: 0.95 }}
+                  aria-expanded={isOpen}
+                  aria-label="Menu Principal"
+                >
+                  <FontAwesomeIcon 
+                    icon={isOpen ? faXmark : faBars} 
+                    className="h-5 w-5" 
+                  />
+                </motion.button>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div className="hidden md:flex space-x-4 sm:space-x-5">
-          {navLinks.map((item) => {
-            const isActive = activeSection === item.toLowerCase();
-            return (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`font-medium px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg transition-all duration-200 transform-gpu ${
-                  isActive
-                    ? isDark 
-                      ? 'text-indigo-400 bg-indigo-900/30 border border-indigo-800/30' 
-                      : 'text-indigo-700 bg-indigo-50 border border-indigo-200/50'
-                    : scrolled
-                      ? isDark 
-                        ? 'text-gray-300 hover:text-indigo-400 hover:bg-indigo-900/20' 
-                        : 'text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/80'
-                      : isDark 
-                        ? 'text-gray-100 hover:text-indigo-400 hover:bg-indigo-900/30 text-shadow-sm shadow-black/50' 
-                        : 'text-gray-900 hover:text-indigo-700 hover:bg-white/60 text-shadow-sm shadow-white/30'
-                }`}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                style={{
-                  boxShadow: isActive 
-                    ? isDark 
-                      ? '0 2px 8px rgba(79, 70, 229, 0.15)' 
-                      : '0 2px 8px rgba(79, 70, 229, 0.1)'
-                    : 'none'
-                }}
-              >
-                {item}
-              </motion.a>
-            );
-          })}
-        </div>
-        
-        <div className="flex items-center space-x-2 sm:space-x-3">
-          <motion.button
-            onClick={toggleTheme}
-            className="rounded-md transition-all duration-300 shadow-sm transform-gpu"
-            style={{
-              padding: '0.4rem 0.65rem',
-              backgroundColor: isDark 
-                ? scrolled 
-                  ? 'rgba(31, 41, 55, 0.9)'
-                  : 'rgba(31, 41, 55, 0.8)'
-                : scrolled 
-                  ? 'rgba(249, 250, 251, 0.95)'
-                  : 'rgba(255, 255, 255, 0.9)',
-              color: isDark ? '#FBBF24' : '#4338CA',
-              border: `1px solid ${
-                isDark 
-                  ? 'rgba(55, 65, 81, 0.7)'
-                  : 'rgba(229, 231, 235, 0.7)'
-              }`,
-              boxShadow: scrolled 
-                ? '0 1px 3px rgba(0,0,0,0.1)'
-                : '0 2px 4px rgba(0,0,0,0.1)'
-            }}
-            aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
-            whileHover={{ 
-              scale: 1.05, 
-              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <FontAwesomeIcon icon={isDark ? faSun : faMoon} className="text-xs sm:text-sm" />
-          </motion.button>
-          
-          <motion.button 
-            className="md:hidden rounded-md transition-all duration-300 transform-gpu"
-            style={{
-              padding: '0.4rem 0.65rem',
-              backgroundColor: isDark 
-                ? scrolled 
-                  ? 'rgba(31, 41, 55, 0.9)'
-                  : 'rgba(31, 41, 55, 0.8)'
-                : scrolled 
-                  ? 'rgba(249, 250, 251, 0.95)'
-                  : 'rgba(255, 255, 255, 0.9)',
-              border: `1px solid ${
-                isDark 
-                  ? 'rgba(55, 65, 81, 0.7)'
-                  : 'rgba(229, 231, 235, 0.7)'
-              }`,
-              boxShadow: scrolled 
-                ? '0 1px 3px rgba(0,0,0,0.1)'
-                : '0 2px 4px rgba(0,0,0,0.1)'
-            }}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu"
-            whileHover={{ 
-              scale: 1.05, 
-              backgroundColor: isDark ? 'rgba(31, 41, 55, 1)' : 'rgba(249, 250, 251, 1)'
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FontAwesomeIcon 
-              icon={isOpen ? faXmark : faBars} 
-              className={`text-xs sm:text-sm ${isDark 
-                ? 'text-gray-200' 
-                : scrolled ? 'text-gray-700' : 'text-gray-900'}`} 
-            />
-          </motion.button>
-        </div>
-      </div>
-      
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className={`md:hidden absolute top-full left-0 w-full py-4 px-4 sm:px-6 ${
-              isDark 
-                ? 'bg-gray-900/95 border-b border-gray-800/30' 
-                : 'bg-white/95 border-b border-gray-200/50'
-            } backdrop-blur-md shadow-lg`}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ 
-              duration: 0.2, 
-              ease: [0.25, 0.46, 0.45, 0.94],
-              staggerChildren: 0.05
-            }}
-          >
-            <div className="flex flex-col space-y-2">
-              {navLinks.map((item, index) => {
-                const isActive = activeSection === item.toLowerCase();
-                
-                return (
+
+        {/* Menu Mobile Dropdown */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              ref={mobileMenuRef}
+              className={`md:hidden fixed top-20 inset-x-0 max-h-[80vh] overflow-y-auto ${
+                isDark ? 'bg-gray-900/95' : 'bg-white/95'
+              } backdrop-blur-lg shadow-lg z-50 border-t ${
+                isDark ? 'border-gray-800' : 'border-gray-200'
+              }`}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+            >
+              <div className="px-3 pt-2 pb-3 space-y-2">
+                {navSections.map((section, index) => (
                   <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setIsOpen(false)}
-                    className={`font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-200 transform-gpu ${
-                      isActive
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className={`block px-4 py-3 rounded-xl flex items-center ${
+                      activeSection === section.id
                         ? isDark 
-                          ? 'text-indigo-400 bg-indigo-900/30 border border-indigo-800/30' 
-                          : 'text-indigo-700 bg-indigo-50 border border-indigo-200/50'
-                        : isDark 
-                          ? 'text-gray-300 hover:text-indigo-400 hover:bg-indigo-900/20' 
-                          : 'text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/80'
-                    }`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ 
-                      duration: 0.2,
-                      delay: index * 0.05
+                          ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-600/30 shadow-sm shadow-indigo-500/10' 
+                          : 'bg-indigo-50 text-indigo-700 border border-indigo-200 shadow-sm shadow-indigo-300/10'
+                        : isDark
+                          ? 'text-gray-300 hover:bg-gray-800 border border-transparent' 
+                          : 'text-gray-700 hover:bg-gray-100 border border-transparent'
+                    } transition-all duration-200`}
+                    onClick={() => {
+                      setActiveSection(section.id);
+                      setIsOpen(false);
                     }}
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {item}
+                    <FontAwesomeIcon 
+                      icon={section.icon} 
+                      size="lg"
+                      className={`mr-3 ${
+                        activeSection === section.id
+                          ? isDark ? 'text-indigo-300' : 'text-indigo-600'
+                          : isDark ? 'text-gray-400' : 'text-gray-500'
+                      }`} 
+                    />
+                    <span className="font-medium">{section.label}</span>
                   </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
   );
 }

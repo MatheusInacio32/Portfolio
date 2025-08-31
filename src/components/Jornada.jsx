@@ -76,7 +76,7 @@ export default function Jornada() {
   
   return (
     <section 
-      id="experiência" 
+      id="jornada"  // ID alterado de "experiência" para "jornada" para corresponder à Navbar
       className={`py-24 px-4 sm:px-8 transition-colors duration-300 relative bg-surface
         ${isDark ? "text-gray-100" : "text-gray-800"}`}
     >

@@ -1,4 +1,3 @@
-
 import Navbar from '../../components/Navbar'; 
 import Homebar from '../../components/Home';
 import Sobremim from '../../components/Sobre'; 
@@ -21,7 +20,7 @@ const LandingPage = () => {
     <div className={`w-full min-h-screen overflow-hidden transition-colors duration-0 ${
       isDark ? 'bg-gradient-dark text-dark-text-primary' : 'bg-gradient-light text-light-text-primary'
     }`}>
-      <Navbar  />
+      <Navbar />
       <Homebar />
       <Sobremim/>
       <Jornada />
