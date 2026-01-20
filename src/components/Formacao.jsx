@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
-  faGraduationCap, faCertificate, faCode, faLaptopCode, 
-  faUserGear, faScrewdriverWrench, faDiagramProject 
+  faGraduationCap, faCode, faLaptopCode, faDiagramProject 
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Formacao() {

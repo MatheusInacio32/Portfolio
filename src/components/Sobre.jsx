@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ReactTyped as Typed } from "react-typed";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDesktop, faMobileScreen, faCode, faDatabase, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faDesktop, faMobileScreen, faCode, faDatabase } from "@fortawesome/free-solid-svg-icons";
 
 export default function Sobre() {
   const { isDark } = useTheme();
