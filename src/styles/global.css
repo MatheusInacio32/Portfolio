@@ -125,6 +125,30 @@ body {
   }
 }
 
+/* Mobile Navbar Improvements - Suaviza animações e previne tremidas */
+@media (max-width: 768px) {
+  /* Prevenir tremidas nas animações mobile */
+  .md\:hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
+  
+  /* Melhorar performance de animações */
+  [class*="motion"] {
+    will-change: transform, opacity;
+  }
+  
+  /* Suavizar transições do menu mobile */
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
 
 /* Fundo */
 @layer utilities {

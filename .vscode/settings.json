@@ -10,5 +10,8 @@
     },
     "files.associations": {
       "*.css": "tailwindcss"
+    },
+    "chat.tools.terminal.autoApprove": {
+      "npx update-browserslist-db@latest": true
     }
   }
