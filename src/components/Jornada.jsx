@@ -91,7 +91,7 @@ export default function Jornada() {
       <div className="relative z-10 max-w-4xl mx-auto">
         <motion.h2 
           className={`text-4xl sm:text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-            ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+            ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
             bg-clip-text text-transparent`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -165,6 +165,8 @@ export default function Jornada() {
                           src={exp.img} 
                           alt={exp.company} 
                           className="w-full h-full rounded-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </motion.div>

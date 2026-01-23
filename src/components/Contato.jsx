@@ -43,7 +43,7 @@ export default function Contato() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-          ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+          ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
           bg-clip-text text-transparent`}>
           Contato
         </h2>

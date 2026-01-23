@@ -60,14 +60,9 @@ export default function Formacao() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-            ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+            ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
             bg-clip-text text-transparent`}>
             Formação Acadêmica
           </h2>
@@ -76,17 +71,11 @@ export default function Formacao() {
             ${isDark ? "text-gray-300" : "text-gray-700"}`}>
             Qualificações e conhecimentos que impulsionam minha carreira
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Coluna da imagem do diploma - mais moderna e interativa */}
-          <motion.div 
-            className="lg:col-span-5"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
+          <div className="lg:col-span-5">
             <div className={`h-full rounded-2xl p-6 sm:p-8 overflow-hidden
               ${isDark 
                 ? "bg-gray-900/30 border border-gray-700/30 hover:border-indigo-500/30" 
@@ -136,6 +125,7 @@ export default function Formacao() {
                     className="w-full h-auto object-cover rounded-xl transform-gpu will-change-transform transition-all 
                              duration-700 group-hover:scale-[1.04] z-10 relative"
                     loading="lazy"
+                    decoding="async"
                   />
                   
                   {/* Overlay sutil com gradiente melhorado */}
@@ -165,34 +155,19 @@ export default function Formacao() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
           
           {/* Coluna com os items de formação */}
           <div className="lg:col-span-7">
             <div className="space-y-5">
               {formacaoItems.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
                   className={`rounded-2xl p-6 
                     ${isDark 
                       ? "bg-gray-900/30 border border-gray-700/30 hover:border-indigo-400/50" 
                       : "bg-white/70 border border-gray-200 shadow-lg shadow-gray-200/50 hover:border-indigo-500/50"} 
-                    backdrop-blur-sm highlight-surface transition-all duration-300`}
-                  initial={{ opacity: 0, y: 25 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.1,
-                    ease: [0.25, 0.46, 0.45, 0.94] 
-                  }}
-                  whileHover={{ 
-                    y: -5,
-                    boxShadow: isDark 
-                      ? "0 20px 25px -5px rgba(79, 70, 229, 0.15)" 
-                      : "0 20px 25px -5px rgba(79, 70, 229, 0.2)",
-                    transition: { duration: 0.3, ease: "easeOut" }
-                  }}
+                    backdrop-blur-sm highlight-surface transition-all duration-300 hover:scale-[1.01]`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start">
                     <div className={`p-3 rounded-xl mr-4 mb-4 sm:mb-0 flex-shrink-0
@@ -243,12 +218,14 @@ export default function Formacao() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
+          </div>
         </div>
       </div>
-      </div>      {/* CSS para animação de gradiente */}
+      
+      {/* CSS para animação de gradiente */}
       <style jsx>{`
         @keyframes gradient-animation {
           0% { background-position: 0% 50% }

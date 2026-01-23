@@ -47,64 +47,67 @@ body {
   @apply bg-white bg-opacity-80;
 }
 
-/* realces específicos para o tema claro: aumentar contraste e destaque sem alterar o gradiente */
+/* Tema Claro - Paleta Séria e Corporativa */
 .light {
-  --light-foreground: #0b1220; /* texto principal mais escuro */
-  --light-muted: #475569; /* texto secundário */
-  --light-accent: #6c4df5; /* tom de destaque consistente com o gradiente */
+  --light-foreground: #111827; /* gray-900 - texto forte */
+  --light-muted: #4B5563;      /* gray-600 - texto secundário */
+  --light-accent: #1F2937;     /* gray-800 - destaque sóbrio */
+  --light-surface: #F3F4F6;    /* gray-100 - fundo neutro */
+  --light-border: #D1D5DB;     /* gray-300 - bordas visíveis */
 }
 
-/* Navbar e superfícies: tornar o fundo mais opaco e o blur mais presente para destacar texto */
+/* Navbar e superfícies com fundo cinza neutro */
 .light nav,
 .light .navbar,
 .light .wtransp,
 .light .bg-surface {
-  background-color: rgba(255,255,255,0.93) !important; /* maior opacidade sem alterar o gradiente de fundo */
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-  backdrop-filter: blur(12px) saturate(120%);
-  box-shadow: 0 8px 20px rgba(16,24,40,0.06);
-  border: 1px solid rgba(16,24,40,0.04);
+  background-color: rgba(243, 244, 246, 0.92) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--light-border);
 }
 
-/* Links, títulos e textos importantes: cores mais escuras e sombra sutil para leitura */
-.light a,
+/* Textos com máximo contraste */
 .light h1,
 .light h2,
-.light h3,
-.light .font-medium,
-.light .text-base {
+.light h3 {
   color: var(--light-foreground) !important;
+  font-weight: 700;
 }
 
 .light p,
+.light span,
 .light .text-small,
 .light .muted {
   color: var(--light-muted) !important;
 }
 
-/* Botões e componentes interativos: destaque com borda sutil e sombra */
+/* Botões sólidos e profissionais */
 .light .btn,
-.light .rounded-md,
 .light button {
-  background-color: rgba(255,255,255,0.96);
-  border: 1px solid rgba(16,24,40,0.06);
-  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  background-color: #FFFFFF;
+  border: 1px solid var(--light-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   color: var(--light-foreground);
 }
 
-/* Estado hover mais contrastante usando o tom de destaque ligado ao gradiente */
+/* Hover discreto */
 .light .btn:hover,
-.light button:hover,
-.light a:hover {
-  color: var(--light-accent) !important;
-  text-decoration: none;
+.light button:hover {
+  background-color: #F9FAFB;
+  border-color: #9CA3AF;
 }
 
-/* pequena utilidade para aplicar sobre superfícies que precisam de maior contraste */
+.light a:hover {
+  color: var(--light-accent) !important;
+}
+
+/* Cards com fundo branco sólido e borda definida */
 .light .highlight-surface {
-  background-color: rgba(255,255,255,0.98);
-  box-shadow: 0 10px 30px rgba(16,24,40,0.07);
-  border: 1px solid rgba(16,24,40,0.05);
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--light-border);
 }
 
 /* Estilos para os botões do carrossel */
@@ -166,31 +169,24 @@ body {
   }
   .bg-gradient-dark {
     background: radial-gradient(circle,
-      #00143a 1%,   
-      #001e43 15%,  
-      #00274c 29%,  
-      #001f36 43%,  
-      #2a2a2a 60%,  
-      #282828 67%,  
-      #252525 74%,  
-      #171717 81%,  
-      #111111 88%,  
-      #000000 95%,  
-      #000000 98%,  
-      #000000 100%  
+      #1E293B 0%,   /* slate-800 centro */
+      #0F172A 40%,  /* slate-900 */
+      #020617 70%,  /* slate-950 */
+      #000000 100%  /* preto nas bordas */
     );
-  
-    }
+  }
     .bg-gradient-light {
-      background: radial-gradient(circle,  
-  
-        #ffffff 100% 
+      background: linear-gradient(180deg,
+        #F9FAFB 0%,
+        #F3F4F6 30%,
+        #E5E7EB 100%
       );
     }
     @media (max-width: 640px) {
       .bg-gradient-light {
-        background: radial-gradient(circle,     
-          #ffffff 100%   
+        background: linear-gradient(180deg,
+          #F9FAFB 0%,
+          #F3F4F6 100%
         );
       }
     }

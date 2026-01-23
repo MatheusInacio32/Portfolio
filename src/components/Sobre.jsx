@@ -31,7 +31,7 @@ export default function Sobre() {
           transition={{ duration: 0.5 }}
         >
           <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-            ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+            ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
             bg-clip-text text-transparent`}>
             Sobre Mim
           </h2>

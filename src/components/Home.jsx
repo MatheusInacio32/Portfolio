@@ -3,9 +3,31 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
+import { useEffect, useMemo } from "react";
+
+// Pré-carrega os SVGs de fundo para evitar flash
+const preloadImage = (src) => {
+  const img = new Image();
+  img.src = src;
+};
 
 export default function Home() {
   const { isDark } = useTheme();
+
+  // URLs dos backgrounds memorizadas
+  const backgroundUrls = useMemo(() => ({
+    light: `${process.env.PUBLIC_URL}/assets/home.svg`,
+    dark: `${process.env.PUBLIC_URL}/assets/homedark.svg`
+  }), []);
+
+  // Pré-carrega ambos os SVGs no mount
+  useEffect(() => {
+    preloadImage(backgroundUrls.light);
+    preloadImage(backgroundUrls.dark);
+  }, [backgroundUrls]);
+
+  // Background atual
+  const currentBackground = isDark ? backgroundUrls.dark : backgroundUrls.light;
 
   return (
     <section
@@ -14,11 +36,9 @@ export default function Home() {
         isDark ? "text-white" : "text-black"
       }`}
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/${
-          isDark ? "homedark.svg" : "home.svg"
-        })`,
+        backgroundImage: `url(${currentBackground})`,
         backgroundSize: "contain",
-        backgroundPosition: "100% 30%", // Movido mais para cima (era 100% center)
+        backgroundPosition: "100% 30%",
         backgroundRepeat: "no-repeat",
       }}
     >
@@ -29,7 +49,7 @@ export default function Home() {
         transition={{ duration: 1.5 }}
       >
         <motion.h1
-          className={`text-3xl md:text-5xl font-bold mb-4 tracking-tight ${
+          className={`text-4xl md:text-5xl font-bold mb-4 tracking-tight ${
             isDark ? "text-gray-100" : "text-gray-900"
           }`}
           initial={{ opacity: 0, y: -20 }}
@@ -40,7 +60,7 @@ export default function Home() {
           <span className="inline-block animate-bounce">🚀</span>
         </motion.h1>
         <motion.h2
-          className={`text-xl md:text-3xl mb-6 leading-relaxed font-light`}
+          className={`text-2xl md:text-3xl mb-6 leading-relaxed font-light`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.3 }}

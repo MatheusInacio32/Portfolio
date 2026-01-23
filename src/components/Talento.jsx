@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faHtml5, faCss3Alt, faJs, faReact, 
@@ -36,7 +35,7 @@ export default function Skills() {
 
       <div className="relative z-10">
         <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-          ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+          ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
           bg-clip-text text-transparent`}>
           Habilidades
         </h2>
@@ -47,28 +46,14 @@ export default function Skills() {
 
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {skillsData.map((skill, index) => (
-            <motion.div
+            <div
               key={index}
               className={`group relative flex flex-col items-center p-4 sm:p-6 rounded-2xl shadow-lg 
                   transition-all duration-200 border backdrop-blur-sm overflow-hidden highlight-surface
                   ${isDark 
                     ? "bg-gray-900/20 border-gray-700/30 hover:border-indigo-400/50 hover:shadow-indigo-400/20 hover:bg-gray-900/30" 
                     : "bg-white/70 border-gray-300 hover:border-indigo-500/70 hover:shadow-indigo-500/30 hover:bg-white/90"} 
-                  cursor-pointer transform-gpu`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.6, 
-                delay: index * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              whileHover={{ 
-                scale: 1.03, 
-                y: -8,
-                transition: { duration: 0.2, ease: "easeOut" }
-              }}
-              whileTap={{ scale: 0.98 }}
+                  cursor-pointer transform-gpu hover:scale-[1.02] active:scale-[0.98]`}
             >
               {/* Glow effect melhorado */}
               <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 
@@ -99,7 +84,7 @@ export default function Skills() {
                   {skill.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

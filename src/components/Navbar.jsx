@@ -193,7 +193,7 @@ export default function Navbar() {
                 Matheus Nunes Inácio
               </h1>
               <p className={`text-xs ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                Analista de Suporte
+                Desenvolvedor Web
               </p>
             </div>
           </motion.a>
@@ -206,7 +206,7 @@ export default function Navbar() {
               Matheus Nunes Inácio
             </h1>
             <p className={`text-[10px] ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-              Analista de Suporte
+              Desenvolvedor Web
             </p>
           </div>
 

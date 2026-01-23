@@ -73,7 +73,7 @@ export default function Projetos() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <h2 className={`text-5xl font-bold text-center mb-4 bg-gradient-to-r 
-          ${isDark ? "from-indigo-400 to-purple-400" : "from-indigo-700 to-purple-700"} 
+          ${isDark ? "from-indigo-400 to-purple-400" : "from-gray-800 to-gray-950"} 
           bg-clip-text text-transparent`}>
           Projetos em Destaque
         </h2>
@@ -107,14 +107,16 @@ export default function Projetos() {
               }}
             >
               {/* Imagens do projeto */}
-              <div className="relative h-56 sm:h-60 md:h-64 w-full overflow-hidden">
+              <div className="relative h-72 sm:h-80 md:h-96 w-full overflow-hidden">
                 <Slider {...settings} className="slider-container">
                   {projeto.imagens.map((imagem, idx) => (
                     <div key={idx} className="outline-none">
                       <img
                         src={imagem}
                         alt={`Imagem do projeto ${projeto.nome} - Slide ${idx + 1}`}
-                        className="w-full h-56 sm:h-60 md:h-64 object-cover"
+                        className="w-full h-72 sm:h-80 md:h-96 object-cover"
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => e.target.src = `${process.env.PUBLIC_URL}/assets/default.jpg`}
                       />
                     </div>

@@ -5,25 +5,25 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: '#4F46E5',
-          dark: '#818CF8',
+          light: '#3730A3',  // Indigo mais profundo e sério
+          dark: '#A5B4FC',   // Indigo suave para contraste
         },
         secondary: {
-          light: '#059669',
-          dark: '#34D399',
+          light: '#0F766E',  // Teal profissional
+          dark: '#5EEAD4',   // Teal suave
         },
         background: {
-          light: '#FFFFFF',
-          dark: '#1A1A1A',
+          light: '#F8FAFC',  // Off-white elegante (não branco puro)
+          dark: '#0F172A',   // Azul-escuro profissional (slate-900)
         },
         text: {
           primary: {
-            light: '#1F2937',
-            dark: '#F9FAFB',
+            light: '#0F172A', // Quase preto, alta legibilidade
+            dark: '#F1F5F9',  // Off-white suave
           },
           secondary: {
-            light: '#6B7280',
-            dark: '#D1D5DB',
+            light: '#475569', // Cinza médio profissional
+            dark: '#94A3B8',  // Cinza claro equilibrado
           },
         },
       },
