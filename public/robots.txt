@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.matheusinacio.com.br/sitemap.xml
+Sitemap: https://matheusinacio.com.br/sitemap.xml

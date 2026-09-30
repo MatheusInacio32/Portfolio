@@ -1,6 +1,6 @@
 # Portfólio de Matheus Nunes Inácio
 
-Site pessoal em [matheusinacio.com.br](https://www.matheusinacio.com.br), feito com React 19, Vite e Tailwind CSS 4.
+Site pessoal em [matheusinacio.com.br](https://matheusinacio.com.br), feito com React 19, Vite e Tailwind CSS 4.
 O HTML é gerado na build, então a página aparece antes de o JavaScript carregar.
 
 ## Comandos

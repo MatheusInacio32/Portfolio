@@ -11,7 +11,7 @@ export const profile = {
   phone: '(44) 99960-9434',
   whatsapp: '5544999609434',
   whatsappMessage: 'Olá, Matheus! Vi seu portfólio e gostaria de conversar.',
-  site: 'https://www.matheusinacio.com.br/',
+  site: 'https://matheusinacio.com.br/',
   cv: '/curriculo-matheus-nunes-inacio.pdf',
   linkedin: 'https://www.linkedin.com/in/matheusnunesinacio',
   linkedinLabel: 'in/matheusnunesinacio',
