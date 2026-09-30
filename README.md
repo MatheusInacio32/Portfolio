@@ -1,31 +1,24 @@
 # Portfólio de Matheus Nunes Inácio
 
-Bem-vindo ao repositório do meu portfólio pessoal! Este site foi desenvolvido para apresentar minha experiência, habilidades e projetos. O portfólio é construído com uma combinação de tecnologias modernas para garantir desempenho, responsividade e interatividade.
-# 📋 Visão Geral
+Site pessoal em [matheusinacio.com.br](https://www.matheusinacio.com.br), feito com React 19, Vite e Tailwind CSS 4.
+O HTML é gerado na build, então a página aparece antes de o JavaScript carregar.
 
-O portfólio é uma aplicação web que organiza e exibe as principais informações sobre minha carreira, incluindo:
-- Seção de introdução e breve sobre mim.
-- Habilidades, destacando as principais tecnologias e frameworks que utilizo.
-- Experiência profissional e projetos em destaque.
-- Formulário de contato e links para redes sociais.
+## Comandos
 
-## 🛠️ Tecnologias Utilizadas
+```bash
+npm install
+npm run dev       # desenvolvimento em http://localhost:3000
+npm run build     # build de produção em build/ (é o que a Vercel roda)
+npm run preview   # serve a build localmente
+npm run assets    # gera o currículo em PDF e a imagem de prévia do link (precisa do Chrome instalado)
+```
 
-- **React** - Biblioteca JavaScript para interfaces de usuário interativas.
-- **Tailwind CSS** - Utilizado para estilização rápida e responsiva.
-- **Framer Motion** - Aplicado para animações fluidas e transições visuais.
-- **FontAwesome** - Ícones para representar tecnologias e links.
-Aqui está um exemplo de `README.md` para o seu portfólio, incluindo uma visão geral do projeto, tecnologias utilizadas, instruções de instalação e configuração:
+## Onde mudar o conteúdo
 
-1. **Clone o repositório:**
-2. **Instale as dependências:**
-   ```bash
-   npm install
-   ```
-3. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npm start
-   npm run build
-   npm run deploy
-   ```
-4. Abra seu navegador e acesse `http://localhost:3000` para visualizar o site.
+Todo o texto fica em `src/data/`: `profile.js` (dados pessoais e contato), `experience.js`, `projects.js`,
+`education.js` e `skills.js`. Datas usam o formato `AAAA-MM`; um cargo sem `end` é o atual.
+
+Depois de mudar experiência, formação ou foto, rode `npm run assets` para atualizar
+`public/curriculo-matheus-nunes-inacio.pdf` e `public/og.png`.
+
+As imagens ficam em `src/assets/` e são convertidas para AVIF e WebP em vários tamanhos na build.

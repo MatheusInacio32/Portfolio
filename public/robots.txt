@@ -1,8 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-Disallow: /static/js/*.map
-Disallow: /static/css/*.map
 
-# Sitemap
-Sitemap: https://matheusinacio.com.br/sitemap.xml
+Sitemap: https://www.matheusinacio.com.br/sitemap.xml
